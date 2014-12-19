@@ -7,11 +7,28 @@ if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
 			$lastID = $dbObj->insert_data(TABLE_COMMENT,$arr);
-			if($lastID){ echo "COMMENT Inserted";}
-		
-			
-}
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			if($lastID){ redirectURL("show-post.php?id=".$arr['post_id']);}
+	}
+	
+		 $sqlSel_post1 = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
+				$rsResult_post1 = $dbObj->fun_db_query($sqlSel_post1);
+				$post1 = $dbObj->fun_db_fetch_rs_object($rsResult_post1);
+				$arr['total_view']=$post1->total_view+1;
+				$lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($_REQUEST['id']));
+				 $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
+				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+				$post = $dbObj->fun_db_fetch_rs_object($rsResult_post);
+ 
+                $sqlSel_post_like = "SELECT * FROM " . TABLE_LIKE." where post_id=".$post->id ;
+				$rsResult_post_like = $dbObj->fun_db_query($sqlSel_post_like);
+				$like = $dbObj->fun_db_get_num_rows($rsResult_post_like);
+									 
+				$sqlSel_post_comment = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$post->id ;
+				$rsResult_post_comment = $dbObj->fun_db_query($sqlSel_post_comment);
+				$comment = $dbObj->fun_db_get_num_rows($rsResult_post_comment); 
+				?>
+	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -31,17 +48,7 @@ function liked(post_id,user_id){
 <body>
 
 <div id="tabs-1">
-			<?php $sqlSel_post1 = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
-				$rsResult_post1 = $dbObj->fun_db_query($sqlSel_post1);
-				$post1 = $dbObj->fun_db_fetch_rs_object($rsResult_post1);
-				$arr['total_view']=$post1->total_view+1;
-				$lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($_REQUEST['id']));
-				 $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
-				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
-				$post = $dbObj->fun_db_fetch_rs_object($rsResult_post);
-
-				?>
-			
+	
 		           
 						
 						<div>
@@ -58,16 +65,7 @@ function liked(post_id,user_id){
 								</video>-->
 							<?php endif; ?>
 						</div>
-                        <?php $sqlSel_post_like = "SELECT * FROM " . TABLE_LIKE." where post_id=".$post->id ;
-				                      $rsResult_post_like = $dbObj->fun_db_query($sqlSel_post_like);
-					                 $like = $dbObj->fun_db_get_num_rows($rsResult_post_like);
-									 
-									$sqlSel_post_comment = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$post->id ;
-				                      $rsResult_post_comment = $dbObj->fun_db_query($sqlSel_post_comment);
-					                 $comment = $dbObj->fun_db_get_num_rows($rsResult_post_comment); 
-									 
-									 
-									 ?>
+                       
                          <div class="counting31">
                          
                          <?php if(@$_SESSION['session_admin_userid']==''){?>
@@ -99,7 +97,13 @@ function liked(post_id,user_id){
                             <?php while($com = $dbObj->fun_db_fetch_rs_object($rsResult_post_comment)):?>
                             
                             <div>Comment:-<?php echo $com->comment;?><br/>
-                            <em>by:-<?php echo $_SESSION['session_admin_username'];?><br/>
+                            <em>by:-<?php //echo $_SESSION['session_admin_userid'];?>
+                            <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$com->user_id);
+							echo $user['username'];
+							?>
+                            
+                            
+                            <br/>
                             Time:- <?php echo $time = date("H:i:s",strtotime($com->add_date));?><br/>
 							Date:-<?php echo fun_site_date_format($com->add_date)?>
                             </em>
@@ -110,7 +114,7 @@ function liked(post_id,user_id){
                         <div>
                         <form action="" method="post" name="form1" enctype="multipart/form-data">
                         <textarea name="comment" style=" width:400px; height:50px;" placeholder="Comment"></textarea>
-                        <input type="hidden" name="user_id" value="<?php echo $post->user_id;?>" />
+                        <input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>" />
                         <input type="hidden" name="post_id" value="<?php echo $post->id;?>" />
                         <input type="submit" value="Send"  />
                         </form>
