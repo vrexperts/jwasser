@@ -2,9 +2,7 @@
 require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
-
-print_r($_SESSION);
-
+//print_r($_SESSION);
 if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
@@ -20,13 +18,9 @@ if(count($_POST)>0){
 <title>Show Post</title>
 <link rel="stylesheet" href="style.css">
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-                            <script>
-function liked(post_id,user_id)
-{
- alert(post_id);
-  alert(user_id);
+<script>
+function liked(post_id,user_id){
       $.ajax({url:"like.php?post_id="+post_id+"&user_id="+user_id,success:function(result){
-		  alert(result);
       $(".abc").html(result);
     }});
 }
@@ -122,6 +116,7 @@ function liked(post_id,user_id)
                         </form>
                         </div>
                         </div>
+                       
                         
                         
 					</div>
