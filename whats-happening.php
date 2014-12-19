@@ -2,7 +2,7 @@
 require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
-//print_r($_SESSION);?>
+print_r($_SESSION);?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -76,7 +76,7 @@ $dbObj->fun_db_connect();
 
 
   <div id="tabs-2">
-       <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'] ;
+       <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'] ." limit 0,15" ;
 			 $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
 		            <div class="item">
@@ -88,12 +88,26 @@ $dbObj->fun_db_connect();
 						</div>
 					</div>
 					<?php endwhile; ?>
-                    <p>&nbsp;</p>
+                    <a id="inifiniteLoader">Loading... <img src="images/ajax-loader.gif" /></a>
+                    
                     
    </div>
-  <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+  <div id="tabs-3" style="height:250px;">
+    <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
+     <div style="float:left; width:220px;height:220px; border:1px solid #666; padding:10px;"><img src="<?php echo admin_path.$user['images'];?>" width="220" height="220"/></div>  
+     <div style="float:left; width:400px; border:1px solid #666; padding:10px; margin-left:20px;">
+     Name :- <?php echo $user['name'];?><br/>
+     Email :- <?php echo $user['email'];?><br/>
+     
+     
+     </div>                 
+                            
+                            
+                            
+                    
+                            
+                            
+                            
   </div>
 
 
