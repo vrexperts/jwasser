@@ -1,0 +1,60 @@
+
+
+  	.item{
+		float:left;
+		width:220px;
+		
+		display: block;
+
+	
+	}
+	.counting3 {
+height: auto;
+margin: 0 auto;
+width: 100%;
+padding: 7px 0px;
+background-color: #e7e9ea;
+clear: both;
+}
+.counting3 ul {
+border: none;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+}
+.counting3 ul li {
+width: auto;
+height: auto;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #545454;
+font-weight: normal;
+display: inline-block;
+padding: 0px 5px 0px 5px;
+list-style-type: none;
+}
+
+	.counting31 {
+
+width: 420px;
+padding: 7px 0px;
+background-color: #e7e9ea;
+clear: both;
+}
+.counting31 ul {
+border: none;
+margin-left: auto;
+margin-right: auto;
+}
+.counting31 ul li {
+width: auto;
+height: auto;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #545454;
+font-weight: normal;
+display: inline-block;
+padding: 0px 5px 0px 5px;
+list-style-type: none;
+}
+ 
