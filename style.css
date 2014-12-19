@@ -57,4 +57,11 @@ display: inline-block;
 padding: 0px 5px 0px 5px;
 list-style-type: none;
 }
+a#inifiniteLoader{
+    position: fixed;  
+    z-index: 2;  
+    bottom: 15px;   
+    right: 10px; 
+    display:none;
+}
  
