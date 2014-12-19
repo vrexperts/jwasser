@@ -27,47 +27,9 @@ if(count($_POST)>0){
 			   $arr['image']= $target_path;
 		     }
 			$lastID = $dbObj->insert_data(TABLE_POST,$arr);
-			if($lastID){ echo "Post Inserted";}
+			if($lastID){ header("Location: whats-happening.php#tabs-5");
+}
 		
 			
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
-<?php //print_r($_SESSION);?>
-
-<form action="" method="post" name="form1" enctype="multipart/form-data">
-Title :- <input type="text" name="title" value=""><input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>"><br/>
-Tag :- <input type="text" name="tag" value=""><br/>
-Description :- 
-
-
- <?php $sBasePath = $_SERVER['PHP_SELF'];
-				              $sBasePath = admin_path."fckeditor/";
-				              $oFCKeditor = new FCKeditor("description", @$text1['description']);
-				              $oFCKeditor->InstanceName='description';
-				              $oFCKeditor->BasePath	= $sBasePath;
-				              $oFCKeditor->Value	= @$member['description'];
-				              $oFCKeditor->Height =  340; 
-				              $oFCKeditor->Width =  600; 
-				              $oFCKeditor->Create();?>  
-
-<br/>
-Images :- <input type="file" name="image" value=""><br/>
-<input type="submit" value="create"  />
-
-
-</form>
-
-
-
-
-post here
-</body>
-</html>

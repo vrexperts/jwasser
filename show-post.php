@@ -88,7 +88,9 @@ function liked(post_id,user_id){
                             
                             <?php }?>
                             <div>Caption:-<?php echo $post->description;?><br/>
-                            <em>by:-<?php echo $_SESSION['session_admin_username'];?><br/>
+                            <em>by:-<?php $user1 = $dbObj->get_row(TABLE_USERS,"id=".$post->user_id);
+							echo $user1['username'];
+							?><br/>
                             Time:- <?php echo $time = date("H:i:s",strtotime($post->add_date));?><br/>
 							Date:-<?php echo fun_site_date_format($post->add_date)?>
                             </em>

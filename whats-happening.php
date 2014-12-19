@@ -16,6 +16,9 @@ print_r($_SESSION);?>
   $(function() {
     $( "#tabs" ).tabs();
   });
+  $(function() {
+    $( "#tabs1" ).tabs();
+  });
   </script>
   <script type="text/javascript">
       jQuery(document).ready(function($) {
@@ -50,12 +53,19 @@ print_r($_SESSION);?>
 </head>
 
 <body>
-
-<div id="tabs">
-  <ul>
+  <?php if(@$_SESSION['session_admin_userid']!=''):?> <a href="logout.php"><img src="images/button_logout.png"></a><?php endif;?>
+  
+  <div id="tabs">
+     <ul>
     <li><a href="#tabs-1">All Post</a></li>
+    <?php if(@$_SESSION['session_admin_userid']!=''):?>
     <li><a href="#tabs-2">My Post</a></li>
     <li><a href="#tabs-3">MY Profile</a></li>
+    <li><a href="#tabs-5">Post</a></li>
+    <?php else :?>
+    <li><a href="#tabs-4">Login</a></li>
+    <li><a href="#tabs-6">Create Profile</a></li>
+    <?php endif;?>
   </ul>
   <div id="tabs-1">
 			<?php   $sqlSel_post = "SELECT * FROM " . TABLE_POST ." limit 0,15";
@@ -74,7 +84,7 @@ print_r($_SESSION);?>
                     <a id="inifiniteLoader">Loading... <img src="images/ajax-loader.gif" /></a>
 	</div>
 
-
+ <?php if(@$_SESSION['session_admin_userid']!=''):?>
   <div id="tabs-2">
        <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'] ." limit 0,15" ;
 			 $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
@@ -98,17 +108,106 @@ print_r($_SESSION);?>
      <div style="float:left; width:400px; border:1px solid #666; padding:10px; margin-left:20px;">
      Name :- <?php echo $user['name'];?><br/>
      Email :- <?php echo $user['email'];?><br/>
-     
-     
-     </div>                 
-                            
-                            
-                            
-                    
-                            
-                            
-                            
-  </div>
+    </div>                 
+ </div>
+ <div id="tabs-5" >
+    <form action="post.php" method="post" name="form1" enctype="multipart/form-data">
+<table width="70%" border="1" cellspacing="0" cellpadding="5" >
+  <tr>
+    <td >Title :-</td>
+    <td > <input type="text" name="title" value="" required="required" style="width:750px;"><input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>"><br/></td>
+  </tr>
+
+
+<tr>
+    <td>Tag :-</td>
+    <td><input type="text" name="tag" value="" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td>Caption :-</td>
+    <td><textarea name="description" value="" required="required" style="width:750px; height:100px;"></textarea><br/></td>
+  </tr>
+  <tr>
+    <td>Images :-</td>
+    <td><input type="file" name="image" value="" required="required"><br/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" value="create"  /></td>
+  </tr>
+  
+ </table>
+</form>           
+ </div>
+ <?php else :?>
+ 
+ <div id="tabs-4" >
+    <?php echo @$_SESSION['msg'];
+
+$_SESSION['msg']="";
+
+?>
+
+<form action="login.php" method="post" name="form1" enctype="multipart/form-data">
+<table width="70%" border="1" cellspacing="0" cellpadding="5" >
+    <tr>
+    <td >User Name :-</td>
+    <td > <input type="text" name="username" value="" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td >Password :-</td>
+    <td ><input type="password" name="password" value="" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td >&nbsp;</td>
+    <td ><input type="submit" value="Login"  /></td>
+  </tr>
+</table>
+<!--For New Registration <a href="create-user.php" style=" text-decoration:none;">Click Here</a> <a href="logout.php">Logout</a>-->
+
+
+</form>             
+ </div>
+ 
+ 
+
+
+<div id="tabs-6" >
+   <form action="create-user.php" method="post" name="form1" enctype="multipart/form-data">
+<table width="700px" border="1" cellspacing="0" cellpadding="5" >
+  <tr>
+    <td style="width:20%">Name :- </td>
+    <td><input type="text" name="name" value="" required="required" style="width:350px;"><br/></td>
+  </tr>
+  <tr>
+    <td>User Name :- </td>
+    <td><input type="text" name="username" value="" required="required" style="width:350px;"><br/></td>
+  </tr>
+  <tr>
+    <td>Password :- </td>
+    <td><input type="text" name="password" value="" required="required" style="width:350px;"><br/></td>
+  </tr>
+  <tr>
+    <td>Email :- </td>
+    <td><input type="email" name="email" value="" required="required" style="width:350px;"><br/></td>
+  </tr>
+  <tr>
+    <td>Images :- </td>
+    <td><input type="file" name="images" value="" required="required" style="width:350px;"><br/></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" value="create"  /></td>
+  </tr>
+</table>
+</form>
+            
+ </div>
+ <?php endif;?>
+ 
+
+
+ 
 
 
 
