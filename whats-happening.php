@@ -2,7 +2,7 @@
 require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
-print_r($_SESSION);?>
+//print_r($_SESSION);?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,6 +48,16 @@ print_r($_SESSION);?>
       
   </script>
   
+  <script>
+function viewplus(post_id){
+	//alert(post_id);
+      $.ajax({url:"viewpost.php?post_id="+post_id,success:function(result){
+		 // alert(result);
+     //$(".abc").html(result);
+   }});
+}
+</script>
+  
   
 
 </head>
@@ -75,7 +85,8 @@ print_r($_SESSION);?>
 		            <div class="item">
 						<div><?php $extension = end(explode('.', $post->image));
                             if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
-								<a href="show-post.php?id=<?php echo $post->id;?>"><img src="<?php echo admin_path.$post->image;?>" width="220" height="220"/></a>
+                             <!--href="show-post.php?id=<?php echo $post->id;?>" -->
+								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>" width="220" height="220"/></a>
 							<?php endif; ?>
 						</div>
 					</div>

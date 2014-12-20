@@ -10,12 +10,7 @@ if(count($_POST)>0){
 			if($lastID){ redirectURL("show-post.php?id=".$arr['post_id']);}
 	}
 	
-		 $sqlSel_post1 = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
-				$rsResult_post1 = $dbObj->fun_db_query($sqlSel_post1);
-				$post1 = $dbObj->fun_db_fetch_rs_object($rsResult_post1);
-				$arr['total_view']=$post1->total_view+1;
-				$lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($_REQUEST['id']));
-				 $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
+		 				 $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
 				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 				$post = $dbObj->fun_db_fetch_rs_object($rsResult_post);
  
