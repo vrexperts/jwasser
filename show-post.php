@@ -95,8 +95,12 @@ function liked(post_id,user_id){
                             
                             <div>Comment:-<?php echo $com->comment;?><br/>
                             <em>by:-<?php //echo $_SESSION['session_admin_userid'];?>
-                            <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$com->user_id);
+                            <?php 
+							if($com->user_id!='0'){
+							$user = $dbObj->get_row(TABLE_USERS,"id=".$com->user_id);
 							echo $user['username'];
+							}
+							else{ echo $com->user_name;}
 							?>
                             
                             
@@ -110,10 +114,15 @@ function liked(post_id,user_id){
                         
                         <div>
                         <form action="" method="post" name="form1" enctype="multipart/form-data">
-                        <textarea name="comment" style=" width:400px; height:50px;" placeholder="Comment"></textarea>
+                        <textarea name="comment" style=" width:400px; height:50px;" placeholder="Comment" required="required"></textarea>
+                        <?php if(@$_SESSION['session_admin_userid']!=''){?>
                         <input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>" />
+                        <?php } else {?>
+                          <input type="text" name="user_name" value=""  required="required" placeholder="Name" style=" width:400px; margin-top:20px;"/>
+                            <input type="email" name="email" value=""  required="required" placeholder="Email" style=" width:400px;margin-top:20px;"/>
+                        <?php }?>
                         <input type="hidden" name="post_id" value="<?php echo $post->id;?>" />
-                        <input type="submit" value="Send"  />
+                        <input type="submit" value="Send"  style=" margin-top:10px;"/>
                         </form>
                         </div>
                         </div>
