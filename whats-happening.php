@@ -64,7 +64,11 @@ function viewplus(post_id){
 
 <body>
   <?php if(@$_SESSION['session_admin_userid']!=''):?> <a href="logout.php"><img src="images/button_logout.png"></a><?php endif;?>
-  
+  <?php echo @$_SESSION['msg'];
+
+$_SESSION['msg']="";
+
+?>
   <div id="tabs">
      <ul>
     <li><a href="#tabs-1">All Post</a></li>
@@ -153,11 +157,7 @@ function viewplus(post_id){
  <?php else :?>
  
  <div id="tabs-4" >
-    <?php echo @$_SESSION['msg'];
-
-$_SESSION['msg']="";
-
-?>
+    
 
 <form action="login.php" method="post" name="form1" enctype="multipart/form-data">
 <table width="70%" border="1" cellspacing="0" cellpadding="5" >

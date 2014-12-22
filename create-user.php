@@ -19,8 +19,8 @@ if(count($_POST)>0){
 		     }
 			$existusername=$dbObj->fun_check_username_admin_existance1($arr['username']);
 			$existemail=$dbObj->fun_check_email_admin_existance1($arr['email']);
-			if($existusername){echo "Username already Exits";}
-			elseif($existemail){echo "Email already Exits";}
+			if($existusername){$_SESSION['msg']= "Username already Exits";header("Location: whats-happening.php#tabs-6");}
+			elseif($existemail){$_SESSION['msg']="Email already Exits";header("Location: whats-happening.php#tabs-6");}
 			else{$lastID = $dbObj->insert_data(TABLE_USERS,$arr);
 			if($lastID){ header("Location: whats-happening.php#tabs-6");}
 			}
