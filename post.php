@@ -8,7 +8,7 @@ if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
 			 $arr['status']=1;
-			 print_r($_FILES);
+			 //print_r($_FILES);
 		     if($_FILES['image']['name']!=''){
 				 //$target_path = "post/";
                  //$target_path = $target_path . basename( $_FILES['image']['name']);
