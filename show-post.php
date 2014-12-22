@@ -34,8 +34,17 @@ if(count($_POST)>0){
 function liked(post_id,user_id){
       $.ajax({url:"like.php?post_id="+post_id+"&user_id="+user_id,success:function(result){
       $(".abc").html(result);
+	  location.reload();
     }});
 }
+function unlike(post_id,user_id){
+      $.ajax({url:"unlike.php?post_id="+post_id+"&user_id="+user_id,success:function(result){
+		  //alert(result);
+      $(".abc").html(result);
+	  location.reload();
+    }});
+}
+
 </script>
 
 </head>
@@ -74,7 +83,15 @@ function liked(post_id,user_id){
                             <?php } else {?>
                            
                             <ul>
+                            <?php $sql_like4 = "SELECT *  FROM  ".TABLE_LIKE." where post_id=".$post->id." and  user_id=".$_SESSION['session_admin_userid'];
+                                  $rsResult_like4 = $dbObj->fun_db_query($sql_like4);
+                                  $like4 = $dbObj->fun_db_get_num_rows($rsResult_like4);
+								  if($like4==''){
+								  ?>
                                 <li><span><a  onclick="liked(<?php  echo $post->id;?>,<?php echo $_SESSION['session_admin_userid'];?>)" title="<?php echo $like;?> likes"><img src="images/like.png" alt=""></a>&nbsp;<span class="abc"><?php echo $like;?></span></span></li>
+                                <?php } else {?>
+                                <li><span><a  onclick="unlike(<?php  echo $post->id;?>,<?php echo $_SESSION['session_admin_userid'];?>)" title="<?php echo $like;?> likes"><img src="images/dislike.png" width="13" height="12" alt=""></a>&nbsp;<span class="abc"><?php echo $like;?></span></span></li>
+                                <?php }?>
                                 <li><span><a title="<?php echo $post->total_view;?> views"><img src="images/like2.png" alt=""></a>&nbsp;<?php echo $post->total_view;?> </span></li>
                                 <!--<li><span><a title="0 follows"><img src="images/like3.png" alt=""></a>&nbsp;0 </span></li>-->
                                 <li><span><a title="<?php echo $comment;?> comments"><img src="images/like4.png" alt=""></a>&nbsp;<?php echo $comment;?> </span></li>
