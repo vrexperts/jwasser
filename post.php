@@ -10,20 +10,17 @@ if(count($_POST)>0){
 			 $arr['status']=1;
 			 print_r($_FILES);
 		     if($_FILES['image']['name']!=''){
-				 $target_path = "post/";
-                 $target_path = $target_path . basename( $_FILES['image']['name']);
-				 
-				 move_uploaded_file($_FILES["image"]["tmp_name"], $target_path);
-				 
-				 
-               //$randnum = rand();
-		      // $str = str_replace(' ','_',$_FILES['image']['name']);
-	           //$Small_logo_ImgFName ="post/user_".$str;
-		       //$image = new SimpleImage();
-		      // $image->load($_FILES['image']['tmp_name']);
+				 //$target_path = "post/";
+                 //$target_path = $target_path . basename( $_FILES['image']['name']);
+				 //move_uploaded_file($_FILES["image"]["tmp_name"], $target_path);
+              $randnum = rand();
+		      $str = str_replace(' ','_',$_FILES['image']['name']);
+	          $Small_logo_ImgFName ="post/post_".$str;
+		      $image = new SimpleImage();
+		      $image->load($_FILES['image']['tmp_name']);
 	           //$image->resize(100,100);
-	           //$image->save($Small_logo_ImgFName);
-		      // $arr['image']= "post/user_".$str;
+	          $image->save($Small_logo_ImgFName);
+		      $arr['image']= "post/post_".$str;
 			   $arr['image']= $target_path;
 		     }
 			$lastID = $dbObj->insert_data(TABLE_POST,$arr);
