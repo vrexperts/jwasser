@@ -8,7 +8,7 @@ if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
 			 $arr['status']=1;
-			 //print_r($_FILES);
+			//print_r($_FILES);die;
 		     if($_FILES['image']['name']!=''){
 				 //$target_path = "post/";
                  //$target_path = $target_path . basename( $_FILES['image']['name']);
@@ -21,10 +21,12 @@ if(count($_POST)>0){
 	           //$image->resize(100,100);
 	          $image->save($Small_logo_ImgFName);
 		      $arr['image']= "post/post_".$str;
-			   $arr['image']= $target_path;
 		     }
 			$lastID = $dbObj->insert_data(TABLE_POST,$arr);
-			if($lastID){ header("Location: whats-happening.php#tabs-5");
+			if($lastID){
+				
+				$_SESSION['msg']="Post Insert Successfully";
+				 header("Location: whats-happening.php#tabs-5");
 }
 		
 			

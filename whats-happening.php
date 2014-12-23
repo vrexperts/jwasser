@@ -83,7 +83,7 @@ function editprofile(){
 <body>
   <?php if(@$_SESSION['session_admin_userid']!=''):?> <a href="logout.php"><img src="images/button_logout.png"></a><?php endif;?>
   <?php echo @$_SESSION['msg'];
-  //print_r($_SESSION);
+ //print_r($_SESSION);
 
 $_SESSION['msg']="";
 
@@ -101,7 +101,7 @@ $_SESSION['msg']="";
     <?php endif;?>
   </ul>
   <div id="tabs-1">
-			<?php   $sqlSel_post = "SELECT * FROM " . TABLE_POST ." limit 0,15";
+			<?php   $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where post_status=0  limit 0,15";
 				    $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
 			
@@ -110,6 +110,7 @@ $_SESSION['msg']="";
                             if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
                              <!--href="show-post.php?id=<?php echo $post->id;?>" -->
 								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>" width="220" height="220"/></a>
+                                
 							<?php endif; ?>
 						</div>
 					</div>
@@ -196,7 +197,13 @@ $_SESSION['msg']="";
      <div style="float:left; width:400px; border:1px solid #666; padding:10px; margin-left:20px;">
      Name :- <input type="text" value="<?php echo $user['name'];?>" name="name" required="required"\/><br/>
      Email :-<input type="email" value="<?php echo $user['email'];?>" name="email"  required="required"/>
-     <input type="hidden" value="<?php echo $user['id'];?>" name="id" />
+     <input type="hidden" value="<?php echo $user['id'];?>" name="id" /><br/>
+    Post Status :- 
+     <select name="post_status">
+     <option value="0" <?php if($user['post_status']=='0'){echo 'selected="selected"';}?> >Public</option>
+     <option value="1" <?php if($user['post_status']=='1'){echo 'selected="selected"';}?>>Private</option>
+     </select><br/>
+     
      <input type="submit" value="Update" name="sumbit" />
      
      <br/></div>
@@ -210,7 +217,18 @@ $_SESSION['msg']="";
 <table width="70%" border="1" cellspacing="0" cellpadding="5" >
   <tr>
     <td >Title :-</td>
-    <td > <input type="text" name="title" value="" required="required" style="width:750px;"><input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>"><br/></td>
+    <td > <input type="text" name="title" value="" required="required" style="width:750px;">
+    <input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>">
+    
+    
+    
+    <input type="hidden" name="post_status" value="<?php echo @$user['post_status'];?>">
+    
+    
+    
+    
+    
+    <br/></td>
   </tr>
 
 

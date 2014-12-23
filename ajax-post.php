@@ -5,7 +5,7 @@ $dbObj->fun_db_connect();
 $page=$_REQUEST['page_no'];
 $start=($page-1)*15;
 $end=$start+15;
-$sqlSel_post = "SELECT * FROM " . TABLE_POST ." limit $start,15";
+$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where post_status=0 limit $start,15";
 				    $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
 <div class="item">
