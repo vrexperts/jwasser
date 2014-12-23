@@ -57,6 +57,24 @@ function viewplus(post_id){
    }});
 }
 </script>
+<script>
+function resetpwd(){
+	
+    $("#resetdiv").show('slow');
+}
+function forgotpwd(){
+	
+    $("#forgotdiv").show('slow');
+}
+function editprofile(){
+	
+    $("#editprofilediv").show('slow');
+	$("#user_details").hide('slow');
+	
+}
+
+
+</script>
   
   
 
@@ -65,6 +83,7 @@ function viewplus(post_id){
 <body>
   <?php if(@$_SESSION['session_admin_userid']!=''):?> <a href="logout.php"><img src="images/button_logout.png"></a><?php endif;?>
   <?php echo @$_SESSION['msg'];
+  //print_r($_SESSION);
 
 $_SESSION['msg']="";
 
@@ -117,13 +136,74 @@ $_SESSION['msg']="";
                     
                     
    </div>
-  <div id="tabs-3" style="height:250px;">
+  <div id="tabs-3" style="height:350px;">
     <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
-     <div style="float:left; width:220px;height:220px; border:1px solid #666; padding:10px;"><img src="<?php echo admin_path.$user['images'];?>" width="220" height="220"/></div>  
+    <div id="user_details"> <div style="float:left; width:220px;height:220px; border:1px solid #666; padding:10px;">
+    
+    <img src="<?php echo admin_path.$user['images'];?>" width="220" height="220"/>
+    
+    </div>  
      <div style="float:left; width:400px; border:1px solid #666; padding:10px; margin-left:20px;">
      Name :- <?php echo $user['name'];?><br/>
-     Email :- <?php echo $user['email'];?><br/>
-    </div>                 
+     Email :- <?php echo $user['email'];?><br/></div>
+   
+   
+    <div id="editprofile" style="margin-left:268px;"><a onclick="editprofile();" style="font-size:10px; color:#09C;"><br/><br/><br/><br/><br/><br/>Edit Profile</a></div>
+     <div id="reset" style="margin-left:268px;"><a onclick="resetpwd();" style="font-size:10px; color:#09C;">Reset Password</a></div>
+    <div id="resetdiv" style="display:none; margin-left:268px;">
+    
+    <form action="reset-pwd.php" method="post" name="form1" enctype="multipart/form-data">
+<input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>"><br/>
+<table width="70%" border="1" cellspacing="0" cellpadding="5" >
+
+
+
+
+    <tr>
+    <td >Old Password :-</td>
+    <td ><input type="o_password" name="o_password" value="" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td >New Password :-</td>
+    <td ><input type="n_password" name="n_password" value="<?php echo @$_POST['n_password'];?>" required="required" style="width:750px;"><br/></td>
+  </tr>
+   <tr>
+    <td >Password :-</td>
+    <td ><input type="c_password" name="c_password" value="<?php echo @$_POST['c_password'];?>" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td >&nbsp;</td>
+    <td ><input type="submit" value="Reset Password"  /></td>
+  </tr>
+</table>
+
+
+</form>
+    
+    </div>
+    </div>
+    <div id="editprofilediv" style="display:none;">
+    
+    
+    <div style="float:left; width:220px;height:220px; border:1px solid #666; padding:10px;">
+    
+    <form action="edit.php" method="post" enctype="multipart/form-data">
+    <div id="fileInput">
+    <label for="FileID"><img src="<?php echo admin_path.$user['images'];?>" width="220" height="220"/></label>
+    <input type="file" id="FileID" style="display:none;" name="images"/>
+</div>
+    </div>  
+     <div style="float:left; width:400px; border:1px solid #666; padding:10px; margin-left:20px;">
+     Name :- <input type="text" value="<?php echo $user['name'];?>" name="name" required="required"\/><br/>
+     Email :-<input type="email" value="<?php echo $user['email'];?>" name="email"  required="required"/>
+     <input type="hidden" value="<?php echo $user['id'];?>" name="id" />
+     <input type="submit" value="Update" name="sumbit" />
+     
+     <br/></div>
+     </form>
+    
+    </div>
+                    
  </div>
  <div id="tabs-5" >
     <form action="post.php" method="post" name="form1" enctype="multipart/form-data">
@@ -173,11 +253,31 @@ $_SESSION['msg']="";
     <td >&nbsp;</td>
     <td ><input type="submit" value="Login"  /></td>
   </tr>
+</table></form>  
+    <div id="forgot" style="margin-left:10px;"><a onclick="forgotpwd();" style="font-size:10px; color:#09C;">Forgot Your Password</a></div>
+    <div id="forgotdiv" style="display:none; margin-left:10px;">
+<form action="send-forgot-pwd.php" method="post" name="form1" enctype="multipart/form-data">
+<input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>"><br/>
+<table width="70%" border="1" cellspacing="0" cellpadding="5" >
+
+
+
+
+    <tr>
+    <td >Email :-</td>
+    <td ><input type="email" name="email" value="" required="required" style="width:750px;"><br/></td>
+  </tr>
+  <tr>
+    <td >&nbsp;</td>
+    <td ><input type="submit" value="Send"  /></td>
+  </tr>
 </table>
-<!--For New Registration <a href="create-user.php" style=" text-decoration:none;">Click Here</a> <a href="logout.php">Logout</a>-->
 
 
-</form>             
+</form>
+</div>
+
+           
  </div>
  
  
