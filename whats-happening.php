@@ -21,30 +21,58 @@ $dbObj->fun_db_connect();
   });
   </script>
   <script type="text/javascript">
+      var count = 1;
+	  var orderby = 'id';
+	  var userid = 0;
       jQuery(document).ready(function($) {
-          var count = 2;
+		  loadArticle(count, orderby, userid);
+          count++;
+		  
           $(window).scroll(function(){
                   if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-                     loadArticle(count);
+                     loadArticle(count, orderby, userid);
                      count++;
                   }
           }); 
  
-          function loadArticle(pageNumber){    
+          
+		  
+		  
+		  
+   
+      });
+	  
+	  function loadArticle(pageNumber, order, userid){
                   $('a#inifiniteLoader').show('fast');
                   $.ajax({
                       url: "ajax-post.php",
                       type:'POST',
-                      data: "action=infinite_scroll&page_no="+ pageNumber + '&loop_file=loop', 
+                      data: "action=infinite_scroll&page_no="+ pageNumber + '&loop_file=loop&orderby=' + order + '&user_id=' + userid, 
                       success: function(html){
                           $('a#inifiniteLoader').hide('1000');
-                          $("#tabs-1").append(html);    // This will be the div where our content will be loaded
+                          $("#con").append(html);    // This will be the div where our content will be loaded
                       }
                   });
               return false;
           }
-   
-      });
+	  
+	  function mview(order) {
+		        userid=0;
+				orderby = order;
+				$('#con').html('');
+				count=1;
+				loadArticle(count, orderby, userid);
+			    count++;
+		  }
+		  
+		  
+		  function mpost(uid) {
+			  	userid = uid;
+				$('#con').html('');
+				count=1;
+				loadArticle(count, orderby, userid);
+			    count++;
+		  }
       
   </script>
   
@@ -52,6 +80,9 @@ $dbObj->fun_db_connect();
 function viewplus(post_id){
 	//alert(post_id);
       $.ajax({url:"viewpost.php?post_id="+post_id,success:function(result){
+		  
+  
+		  
 		 // alert(result);
      //$(".abc").html(result);
    }});
@@ -72,7 +103,45 @@ function editprofile(){
 	$("#user_details").hide('slow');
 	
 }
+function goBack() {
+    window.history.back()
+}
 
+
+
+/*
+function mview(order){
+	//alert(post_id);
+      //$.ajax({url:"ajax_mview.php?order="+order,success:function(result){
+		 // alert(result);
+    //$("#con").html(result);
+	$("#con").html('');
+	var count = 1;
+          $(window).scroll(function(){
+                  if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+                     loadArticle(count);
+                     count++;
+                  }
+          }); 
+ 
+          function loadArticle(pageNumber){    
+                  $('a#inifiniteLoader').show('fast');
+                  $.ajax({
+                      url: "ajax-post.php",
+                      type:'POST',
+                      data: "action=infinite_scroll&page_no="+ pageNumber + '&loop_file=loop&order='+order, 
+                      success: function(html){
+                          $('a#inifiniteLoader').hide('1000');
+                          $("#tabs-1").append(html);    // This will be the div where our content will be loaded
+                      }
+                  });
+              return false;
+          }
+	
+	
+//   }});
+}
+*/
 
 </script>
   
@@ -82,7 +151,10 @@ function editprofile(){
 
 <body>
   <?php if(@$_SESSION['session_admin_userid']!=''):?> <a href="logout.php"><img src="images/button_logout.png"></a><?php endif;?>
-  <?php echo @$_SESSION['msg'];
+  <?php 
+  echo "Welcome ".@$_SESSION['session_admin_username'];
+  
+  echo @$_SESSION['msg'];
  //print_r($_SESSION);
 
 $_SESSION['msg']="";
@@ -92,8 +164,8 @@ $_SESSION['msg']="";
      <ul>
     <li><a href="#tabs-1">All Post</a></li>
     <?php if(@$_SESSION['session_admin_userid']!=''):?>
-    <li><a href="#tabs-2">My Post</a></li>
-    <li><a href="#tabs-3">MY Profile</a></li>
+    <!--<li><a href="#tabs-2">My Post</a></li>-->
+    <li><a href="#tabs-3">Setting</a></li>
     <li><a href="#tabs-5">Post</a></li>
     <?php else :?>
     <li><a href="#tabs-4">Login</a></li>
@@ -101,27 +173,29 @@ $_SESSION['msg']="";
     <?php endif;?>
   </ul>
   <div id="tabs-1">
-			<?php   $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where post_status=0  limit 0,15";
-				    $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
-					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
-			
-		            <div class="item">
-						<div><?php $extension = end(explode('.', $post->image));
-                            if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
-                             <!--href="show-post.php?id=<?php echo $post->id;?>" -->
-								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>" width="220" height="220"/></a>
-                                
-							<?php endif; ?>
-						</div>
-					</div>
-					<?php endwhile; ?>
-                    
+  
+  
+  <ul>
+                   <li><a onclick="mview('total_view');" >Most Viewed</a></li>
+                   <li><a onclick="mview('total_comment');">Most Comment</a></li>
+                   <li><a onclick="mview('total_like');">Most Like</a></li>
+                   
+                   </ul>
+                   <div style=" float:right;">
+                   
+                   <?php if(@$_SESSION['session_admin_userid']!=''):?> <a onclick="mpost(<?php echo $_SESSION['session_admin_userid'];?>);" style=" color:#069; cursor:pointer;">My Post</a><?php endif;?>
+                   
+                   </div>
+                   <div style="clear:both;"></div>
+  
+ <div id="con"></div>            
                     <a id="inifiniteLoader">Loading... <img src="images/ajax-loader.gif" /></a>
+                    
 	</div>
 
- <?php if(@$_SESSION['session_admin_userid']!=''):?>
+ <?php /*?><?php if(@$_SESSION['session_admin_userid']!=''):?>
   <div id="tabs-2">
-       <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'] ." limit 0,15" ;
+       <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where  user_id=".$_SESSION['session_admin_userid'] ." order by id DESC limit 0,15" ;
 			 $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
 		            <div class="item">
@@ -137,6 +211,8 @@ $_SESSION['msg']="";
                     
                     
    </div>
+   <?php endif;?><?php */?>
+   <?php if(@$_SESSION['session_admin_userid']!=''):?>
   <div id="tabs-3" style="height:350px;">
     <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
     <div id="user_details"> <div style="float:left; width:220px;height:220px; border:1px solid #666; padding:10px;">
@@ -208,7 +284,10 @@ $_SESSION['msg']="";
      
      <br/></div>
      </form>
-    
+     <div style="clear:both;"></div>
+   <button onclick="goBack()">Go Back</button>
+
+
     </div>
                     
  </div>

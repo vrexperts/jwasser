@@ -15,6 +15,8 @@ $lastID = $dbObj->insert_data(TABLE_LIKE,$arr);
 $sql_like1 = "SELECT *  FROM  ".TABLE_LIKE." where post_id=".$_REQUEST['post_id'];
 $rsResult_like1 = $dbObj->fun_db_query($sql_like1);
 $like1 = $dbObj->fun_db_get_num_rows($rsResult_like1);
+$arr['total_like']=$like1;
+$lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($_REQUEST['post_id']));
 echo $like1;
 }
 else

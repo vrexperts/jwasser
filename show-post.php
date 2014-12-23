@@ -7,10 +7,17 @@ if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
 			$lastID = $dbObj->insert_data(TABLE_COMMENT,$arr);
+			$sqlSel_com1 = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$arr['post_id'] ;
+			$rsResult_com1 = $dbObj->fun_db_query($sqlSel_com1);
+			$total_comment = $dbObj->fun_db_get_num_rows($rsResult_com1);
+			
+			$arr['total_comment']=$total_comment;
+            $lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($arr['post_id']));
+			
 			if($lastID){ redirectURL("show-post.php?id=".$arr['post_id']);}
 	}
 	
-		 				 $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
+		 		$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
 				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
 				$post = $dbObj->fun_db_fetch_rs_object($rsResult_post);
  
