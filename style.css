@@ -64,4 +64,24 @@ a#inifiniteLoader{
     right: 10px; 
     display:none;
 }
+ #tabs-1 ul li 
+  {
+	  float:left;
+	  border:1px #999 solid;
+	  background:#666;
+	  display:block;
+	  margin-left:10px;
+	  cursor:pointer;
+	  border-radius: 25px;
+	  color:#FFFFFF;
+	  	  padding:5px 15px 5px 15px;
+
+  }
+ 
+   #tabs-1 ul li a:hover
+  {
+	  border-radius: 25px;
+	  color:#FFFFFF;
+
+  }
  
