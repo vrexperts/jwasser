@@ -11,7 +11,7 @@ require_once("includes/application-top.php");
 				$_SESSION['session_admin_username'] = $adminInfo['username'];
 				 $_SESSION['session_admin_password'] = $adminInfo['password'];
 				
-				redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-5");
+				redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-1");
 			}else{
 				unset($_SESSION['session_admin_userid']);
 				unset($_SESSION['session_admin_username']);

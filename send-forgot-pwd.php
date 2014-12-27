@@ -33,7 +33,7 @@ $mail->Body = "<b><font  size='+2' color='red'>Reset Password</font></b><br><br>
 		      <br>Click the link below to reset your password<br>
 		      http://".$_SERVER['HTTP_HOST']."/git/jwasser/forgot.php?key=".$arr['reset_key']."<br><br>";
 
-//echo  $mail->Body ;die;
+echo  $mail->Body ;die;
 
 if(!$mail->Send()) {
 

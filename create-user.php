@@ -22,7 +22,7 @@ if(count($_POST)>0){
 			if($existusername){$_SESSION['msg']= "Username already Exits";header("Location: whats-happening.php#tabs-6");}
 			elseif($existemail){$_SESSION['msg']="Email already Exits";header("Location: whats-happening.php#tabs-6");}
 			else{$lastID = $dbObj->insert_data(TABLE_USERS,$arr);
-			if($lastID){ header("Location: whats-happening.php#tabs-6");}
+			if($lastID){ $_SESSION['msg']="Profile Created"; header("Location: whats-happening.php#tabs-6");}
 			}
 			
 }
