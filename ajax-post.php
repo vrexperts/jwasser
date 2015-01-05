@@ -36,9 +36,9 @@ if($page > 1) {
                    </a>
 <div class="contentbox">
 <div class="contenttext"><?php echo $post->description;?></div>
-<div class="comments">Comments(<?php echo $post->total_comment;?>)</div>
-<div class="imglike">Like(<?php echo $post->total_like;?>)</div>
-<div class="viewed">Viewed(<?php echo $post->total_view;?>)</div>
+<div class="comments" style=" cursor:pointer;" title="Comment">Comments(<?php echo $post->total_comment;?>)</div>
+<div class="imglike" style=" cursor:pointer;" title="Like">Like(<?php echo $post->total_like;?>)</div>
+<div class="viewed" style=" cursor:pointer;" title="View">Viewed(<?php echo $post->total_view;?>)</div>
 </div>
 <div class="clear"></div>
 </li>

@@ -115,7 +115,7 @@ $dbObj->fun_db_connect();
  <div class="pad5"></div>
 <input type="submit" class="button" value="Login" />
  </form>
- <div id="forgot"><a onclick="forgotpwd();" style=" color:#000099;">Forgot Your Password</a></div>
+ <div id="forgot"><a onclick="forgotpwd();">Forgot Your Password</a></div>
  </div>
   
   
@@ -130,7 +130,7 @@ $dbObj->fun_db_connect();
 <input type="submit" class="button"  value="Send"/>
   </fieldset>
  </form>
- <div id="forgot12"><a onclick="goBack();" style=" color:#000099;">Back</a></div>
+ <div id="forgot12"><a onclick="goBack();">Back</a></div>
  </div>
   
   
@@ -149,11 +149,10 @@ $dbObj->fun_db_connect();
 <div class="footbar">
 <ul class="footpanel">
 <li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 <li><a href="index.php" class="comment" title="Most Comment"  onClick="mview('total_comment',0);"><span>Most Commented</span></a></li>
 <li><a href="index.php" class="like" title="Most Like"  onClick="mview('total_like',0);"><span>Most Liked</span></a></li>
 <li><a href="index.php" class="mostviewed" title="Most View"  onClick="mview('total_view',0);"><span>Most Viewed</span></a></li>
-<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
-
 
 </ul>
 <div class="footpanel"></div>

@@ -16,7 +16,7 @@ if($total){
 	  $_SESSION['msg']='<span style=" color:green;font-size:13px;">Password Changed</span>';
 	  redirectURL(SITE_ADMIN_URL."logout.php?reset=yes");
      }else{
-     $_SESSION['msg']="New password and Comform password are not matching";
+     $_SESSION['msg']="New password and confirm password are not matching";
      }
 }
 else
@@ -105,11 +105,10 @@ else
 <div class="footbar">
 <ul class="footpanel">
 <li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 <li><a href="profile.php" class="comment" title="Most Comment"  onClick="mview('total_comment',0);"><span>Most Commented</span></a></li>
 <li><a href="profile.php" class="like" title="Most Like"  onClick="mview('total_like',0);"><span>Most Liked</span></a></li>
 <li><a href="profile.php" class="mostviewed" title="Most View"  onClick="mview('total_view',0);"><span>Most Viewed</span></a></li>
-<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
-
 
 </ul>
 <div class="footpanel"></div>

@@ -2,7 +2,7 @@
 require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
-if($_REQUEST['action']=='edit')
+if(@$_REQUEST['action']=='edit')
 {
 	$user = $dbObj->get_row(TABLE_USERS,"id=".$_REQUEST['id']);
 }
@@ -61,17 +61,22 @@ else
 
 <div id="fileInput">
     <label for="FileID">
+    <img src="images/change-img.png" class="editimg"/>
+    </label>
+    <label>
     <?php if(@$user['images']!=''){?>
-    <img src="<?php echo admin_path.$user['images'];?>" width="220" height="220"/>
+    <img src="<?php echo admin_path.$user['images'];?>" />
     <?php } else {?>
-    <img src="<?php echo admin_path."user/no-images.png";?>" width="220" height="220"/>
+    <img src="<?php echo admin_path."user/no-images.png";?>" />
     <?php }?>
     </label>
+    
     <input type="file" id="FileID" style="display:none;" name="images"/>
 </div>
 
 </div>
 <div class="profiledetails">
+
 <input type="text" name="name" value="<?php echo $user['name'];?>" class="instxt" />
  <div class="pad5"></div>
 <input type="text" name="email" value="<?php echo $user['email'];?>" class="instxt"  disabled/>
@@ -102,10 +107,11 @@ else
 <div class="footbar">
 <ul class="footpanel">
 <li><a href="profile.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 <li><a href="profile.php" class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
 <li><a href="profile.php" class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
 <li><a href="profile.php" class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
-<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?></ul>
+</ul>
 <div class="footpanel"></div>
 <div class="footpanel"></div>
 <div class="footpanel"></div>

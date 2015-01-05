@@ -25,7 +25,7 @@ $sqlSel_post .= " order by `id` DESC limit $start,$end";
             
             echo $user1['name']; }else{}?>
             </td>
-			<td><?php if($user->status=='1'){echo '<span style="color:green;" onClick="changestauts(0,'.$user->id.',0);">Approved</span>';}else{echo '<span style="color:red;" onClick="changestauts(1,'.$user->id.','.$_SESSION['session_admin_userid'].');">Unapproved</span>';}?></td>
+			<td ><?php if($user->status=='1'){echo '<a style="color:green;text-decoration:none;" href="javascript:void(o);" onClick="changestauts(0,'.$user->id.',0);">Approved</a>';}else{echo '<a href="javascript:void(o);"  style="color:red;text-decoration:none;" onClick="changestauts(1,'.$user->id.','.$_SESSION['session_admin_userid'].');">Unapproved</a>';}?></td>
 			
 		</tr>
         

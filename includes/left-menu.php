@@ -1,4 +1,4 @@
-  <a  class="menu-icon"><span><?php if(@$_SESSION['session_admin_userid']!=""){echo @$_SESSION['session_admin_username'] ;} else { ?> Guest User <?php }?></span></a>
+  <a  class="menu-icon"><span><?php if(@$_SESSION['session_admin_userid']!=""){echo @$_SESSION['session_admin_username'] ;} else { ?> Guest <?php }?></span></a>
         <ul class="top-menu">
           <?php if(@$_SESSION['session_admin_userid']==""){?><li><a href="profile-login.php">Log In</a></li><?php }?>
           

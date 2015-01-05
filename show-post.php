@@ -107,23 +107,23 @@ function unlike(post_id,user_id){
 <div class="clear pad5"></div>   
 
 <?php if(@$_SESSION['session_admin_userid']==''):?>
-            <div class="comments">Comments <?php echo $comment;?></div>
-            <div class="imglike">Like <?php echo $like;?></div>
-            <div class="viewed">Viewed <?php echo $post->total_view;?></div>
+            <div class="comments"  style=" cursor:pointer;" title="Comment">Comments <?php echo $comment;?></div>
+            <div class="imglike"  style=" cursor:pointer;" title="Like">Like <?php echo $like;?></div>
+            <div class="viewed"  style=" cursor:pointer;" title="View">Viewed <?php echo $post->total_view;?></div>
 <?php else:?>
 
 <?php $sql_like4 = "SELECT *  FROM  ".TABLE_LIKE." where post_id=".$post->id." and  user_id=".$_SESSION['session_admin_userid'];
        $rsResult_like4 = $dbObj->fun_db_query($sql_like4);
        $like4 = $dbObj->fun_db_get_num_rows($rsResult_like4);?>
-       <div class="comments">Comments <?php echo $comment;?></div>
+       <div class="comments" style=" cursor:pointer;" title="Comment">Comments <?php echo $comment;?></div>
 
 	  <?php  if($like4==''):?>
-          <div class="imglike" onclick="liked(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Like">Like <?php echo $like;?></div>
+          <div class="imglike" style=" cursor:pointer;" onclick="liked(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Like">Like <?php echo $like;?></div>
 
           <?php else:?>
-         <div class="imglike" onclick="unlike(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Unlike">Like <?php echo $like;?></div>
+         <div class="imglike" style=" cursor:pointer;" onclick="unlike(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Unlike">Like <?php echo $like;?></div>
        <?php endif;?>
-         <div class="viewed">Viewed <?php echo $post->total_view;?></div>
+         <div class="viewed" style=" cursor:pointer;" title="View">Viewed <?php echo $post->total_view;?></div>
 <?php endif;?>
 
 <?php while($com = $dbObj->fun_db_fetch_rs_object($rsResult_post_comment)):?>
@@ -180,10 +180,10 @@ function unlike(post_id,user_id){
 <div class="footbar">
 <ul class="footpanel">
 <li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 <li><a href="index.php" class="comment" title="Most Comment"  onClick="mview('total_comment',0);"><span>Most Commented</span></a></li>
 <li><a href="index.php" class="like" title="Most Like"  onClick="mview('total_like',0);"><span>Most Liked</span></a></li>
 <li><a href="index.php" class="mostviewed" title="Most View"  onClick="mview('total_view',0);"><span>Most Viewed</span></a></li>
-<?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 </ul>
 <div class="footpanel"></div>
 <div class="footpanel"></div>

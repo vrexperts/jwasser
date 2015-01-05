@@ -12,6 +12,8 @@ body{
 	background-attachment: fixed;
     }
 
+a { cursor:pointer; color:#fd3001;}
+
 img{border:0;}
 
 .clear{clear:both;}
@@ -113,6 +115,14 @@ ul.top-menu li:last-child a {
 @media screen and (max-width : 480px){
 a.menu-icon span{display:none;}
 .min-hit{ min-height:15%;}
+
+
+.instagram .viewimage .contentbox .profileimg{border:1px solid #666666; float:left; position:relative; width:30%}
+.instagram .viewimage .contentbox .profileimg img{width:100%}
+.instagram .viewimage .contentbox .profiledetails{ padding:5px; float:left;}
+
+.instagram .viewimage .contentbox .profileimg .editimg {position:absolute; z-index:100; top:5px; right:5px; cursor:pointer; width:23px; height:18px;}
+.instagram .viewimage .contentbox .profileimg .editimg img{ width:100%;}
 }
 
 
@@ -157,7 +167,7 @@ a.menu-icon span{display:none;}
 .instagram ul.listview,.instagram ul:after{list-style:none; margin:0; padding:0; clear:both;}
 .instagram ul.listview li{list-style:none; margin:3px; border-bottom:1px solid #cccccc; padding:5px 7px 5px 5px; background:#ffffff; text-align:left; display:block;}
 .instagram ul.listview li a img{ margin:0; padding:0 !important; width:25%; border:1px solid #ababab; float:left;}
-.instagram ul.listview li .contentbox{ float:left; font:12px; color:#555555; padding:5px 10px; width:69%;}
+.instagram ul.listview li .contentbox{ float:left; font:12px; color:#555555; padding:5px 10px; width:66%;}
 
 
 .instagram ul.listview li .contentbox .contenttext, .instagram .viewimage .contenttext{ padding:2px;}
@@ -183,12 +193,13 @@ border:none;
 border-radius:5px;
 color:#ffffff;
 float:right;
+cursor:pointer;
 }
 
-.instagram .viewimage .contentbox .profileimg{ padding:5px; border:1px solid #666666; float:left;}
+.instagram .viewimage .contentbox .profileimg{border:1px solid #666666; float:left; position:relative;}
 .instagram .viewimage .contentbox .profiledetails{ padding:5px; float:left;}
 
-
+.instagram .viewimage .contentbox .profileimg .editimg {position:absolute; z-index:100; top:5px; right:5px; cursor:pointer;}
 
 
 .instagram .footbar{background: rgb(69,72,77); /* Old browsers */
@@ -225,10 +236,10 @@ list-style-type:none;
 
 
 a#inifiniteLoader{
-    position: fixed;  
-    z-index: 2;  
-    bottom: 15px;   
-    right: 10px; 
+    position: absolute;  
+    z-index: 100;  
+    top: 50%;   
+    left: 40%; 
     display:none;
 }
 
