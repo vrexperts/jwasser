@@ -26,10 +26,21 @@ if($page > 1) {
 }
 
 				    $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+					$i=1;
 					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
                     
                     <li><?php $extension = end(explode('.', $post->image));
                             if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
-								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>" width="212" height="212" /></a>
-							<?php endif; ?></li>
-                    <?php endwhile; ?>
+								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>"  /></a>
+							<?php endif; ?>
+                   </a>
+<div class="contentbox">
+<div class="contenttext"><?php echo $post->description;?></div>
+<div class="comments">Comments(<?php echo $post->total_comment;?>)</div>
+<div class="imglike">Like(<?php echo $post->total_like;?>)</div>
+<div class="viewed">Viewed(<?php echo $post->total_view;?>)</div>
+</div>
+<div class="clear"></div>
+</li>
+ <?php endwhile; ?>
+ 

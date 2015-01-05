@@ -1,34 +1,33 @@
 <?php
 require_once("includes/application-top.php");
+$objAdmin = new Admins();
+$objAdmin->fun_authenticate_admin();
 $dbObj = new DB();
 $dbObj->fun_db_connect();
-
 //print_r($_POST);
-if(@$_GET['key']!=''){
-$sql_pwd = "SELECT * FROM ".TABLE_USERS." where reset_key='".@$_GET['key']."'";
+if(count($_POST)>0){
+ $sql_pwd = "SELECT * FROM ".TABLE_USERS." where password='" .MD5($_POST['o_password'])."' and id=" .$_POST['user_id'] ;
 $rsResult_pwd = $dbObj->fun_db_query($sql_pwd);
  $total = $dbObj->fun_db_get_num_rows($rsResult_pwd);
-if(count($_POST)>0){
 if($total){
 	if(@$_POST['n_password']==@$_POST['c_password']){
       $arr['password']=md5($_POST['n_password']);
-	$update="UPDATE ".TABLE_USERS." SET password='".$arr['password']."' , reset_key='' WHERE reset_key='".$_GET['key']."'";
-    $resule=mysql_query($update);
+	  $lastID = $dbObj->update_data(TABLE_USERS,'id',$arr,md5($_POST['user_id']));
 	  $_SESSION['msg']='Password changed';
-	 redirectURL(SITE_ADMIN_URL."profile-login.php");
+	  redirectURL(SITE_ADMIN_URL."logout.php?reset=yes");
      }else{
      $_SESSION['msg']="New password and Comform password are not matching";
+	 redirectURL(SITE_ADMIN_URL."reset-pwd.php");
      }
 }
 else
 	 {
-	$_SESSION['msg']="Your key is expired";	 
+	$_SESSION['msg']="old password incorrect";
+	redirectURL(SITE_ADMIN_URL."reset-pwd.php");	 
 	 }
-}
-}
-else
-{
-	$_SESSION['msg']="Worng Process";	 
+
+       
+
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -51,7 +50,7 @@ else
 
 
 
-</head><body style="background:#ffffff;">
+</head><body style="background:#cacaca;">
 <div class="instagram"> 
 <div class="mainmenu">
 <!-- Start Top Menu -->
@@ -59,7 +58,7 @@ else
 <div class="homebg"><a href="index.php"><span>Home</span></a></div>
 <div class="top-right-panel">
       <?php include("includes/left-menu.php");?>
- </div>
+        </div>
 
 </div>
 <!-- End Top Menu -->
@@ -70,19 +69,22 @@ else
 
 <div class="pad5 clear"></div>
 <div id="login" >
-<strong style="font-size:14px;">Set Password</strong>
+<strong style="font-size:14px;">Reset Password</strong>
 <div class="pad5"></div>
-<?php if(@$_SESSION['msg']!=''):?><div class="title"> <?php echo @$_SESSION['msg'];?></div><?php endif;?>
+<?php if(@$_SESSION['msg']!=''):?><div class="title"> <?php echo @$_SESSION['msg']; @$_SESSION['msg']='';?></div><?php endif;?>
 
-<form action="forgot.php?key=<?php echo @$_GET['key']?>" method="post" name="form1" enctype="multipart/form-data">
-<input type="password" class="instxt" placeholder="New Password"  name="n_password" value="" required/>
+<form action="" method="post" name="form1" enctype="multipart/form-data">
+<input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>">
+<input type="password" name="o_password" value="" required placeholder="Old Password" class="instxt">
 <div class="pad5"></div>
-<input type="password" class="instxt" placeholder="Confirm Password" name="c_password" value="" required/>
+ <input type="password" name="n_password" value="<?php echo @$_POST['n_password'];?>" required placeholder="New Password" class="instxt">
  <div class="pad5"></div>
-<input type="submit" class="button" />
+ 
+ <input type="password" name="c_password" value="<?php echo @$_POST['c_password'];?>" required placeholder="Conform Password" class="instxt">
+ <div class="pad5"></div>
+<input type="submit" class="button" value="Reset Password" />
  </form>
  </div>
-  
   
  
   

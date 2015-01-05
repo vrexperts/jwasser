@@ -6,5 +6,5 @@ require_once("includes/classes/class.DB.php");
 require_once("includes/classes/class.Admins.php");
 require_once("includes/functions/general.php");
 require_once("includes/classes/SimpleImage.php");
-require_once("fckeditor/fckeditor.php");
+//require_once("fckeditor/fckeditor.php");
 ?>

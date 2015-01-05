@@ -10,21 +10,23 @@ require_once("includes/application-top.php");
 				$_SESSION['session_admin_userid'] =  $adminInfo['id'];
 				$_SESSION['session_admin_username'] = $adminInfo['username'];
 				 $_SESSION['session_admin_password'] = $adminInfo['password'];
+				 $_SESSION['session_admin_type'] = $adminInfo['type'];
+				 //print_r($adminInfo);die;
 				
-				redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-1");
+				redirectURL(SITE_ADMIN_URL."instagram.php");
 			}else{
 				unset($_SESSION['session_admin_userid']);
 				unset($_SESSION['session_admin_username']);
 				unset($_SESSION['session_admin_password']);
 				$_SESSION['msg']='You account has been suspended due to some reason!';
-				redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-4");
+				redirectURL(SITE_ADMIN_URL."profile-login.php");
 			}
 		}else{
 			$_SESSION['msg']='Invalid username or password!';
-			redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-4");
+			redirectURL(SITE_ADMIN_URL."profile-login.php");
 		}
 	}else{
 		$_SESSION['msg']='Invalid username or password!';
-	    redirectURL(SITE_ADMIN_URL."whats-happening.php#tabs-4");
+	    redirectURL(SITE_ADMIN_URL."profile-login.php");
 	}
 ?>
