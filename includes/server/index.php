@@ -73,7 +73,7 @@ $dbObj->fun_db_connect();
 				orderby = order;
 				$('#changeview').html('');
 				count=1;
-				loadArticle(count, orderby, userid);
+				loadArticle(count, orderby, userid,total_page);
 			    count++;
 		  }
 		  

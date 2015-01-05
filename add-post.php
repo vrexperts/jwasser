@@ -51,7 +51,7 @@ $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
  <div class="pad5"></div>
  <input type="text" name="tag" value="" required class="instxt" placeholder="Tag" />
  <div class="pad5"></div>
- <textarea class="instxt" rows="5" placeholder="Comments" name="description" value="" required></textarea>
+ <textarea class="instxt" rows="5" placeholder="Description" name="description" value="" required></textarea>
  <div class="pad5"></div>
 <input type="file" name="image" required  class="instxt">
 

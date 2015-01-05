@@ -17,13 +17,11 @@ if($total){
 	  redirectURL(SITE_ADMIN_URL."logout.php?reset=yes");
      }else{
      $_SESSION['msg']="New password and Comform password are not matching";
-	 redirectURL(SITE_ADMIN_URL."reset-pwd.php");
      }
 }
 else
 	 {
 	$_SESSION['msg']="old password incorrect";
-	redirectURL(SITE_ADMIN_URL."reset-pwd.php");	 
 	 }
 
        

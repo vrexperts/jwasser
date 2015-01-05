@@ -73,7 +73,7 @@ $dbObj->fun_db_connect();
 				orderby = order;
 				$('#changeview').html('');
 				count=1;
-				loadArticle(count, orderby, userid);
+				loadArticle(count, orderby, userid,total_page);
 			    count++;
 		  }
 		  
@@ -124,10 +124,10 @@ $dbObj->fun_db_connect();
 
 
 
-<li><a href="#" class="allpost" title="All Post"><span>All Post</span></a></li>
-<li><a href="#" class="comment" title="Most Comment"  onClick="mview('total_comment',0);"><span>Most Commented</span></a></li>
-<li><a href="#" class="like" title="Most Like"  onClick="mview('total_like',0);"><span>Most Liked</span></a></li>
-<li><a href="#" class="mostviewed" title="Most View"  onClick="mview('total_view',0);"><span>Most Viewed</span></a></li>
+<li><a  class="allpost" title="All Post"><span>All Post</span></a></li>
+<li><a  class="comment" title="Most Comment"  onClick="mview('total_comment',0);"><span>Most Commented</span></a></li>
+<li><a class="like" title="Most Like"  onClick="mview('total_like',0);"><span>Most Liked</span></a></li>
+<li><a  class="mostviewed" title="Most View"  onClick="mview('total_view',0);"><span>Most Viewed</span></a></li>
 <?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 
 

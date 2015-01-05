@@ -9,7 +9,7 @@ if(count($_POST)>0){
 		     $arr['add_date']= date("Y-m-d H:i:s");
 			 $lastID1 = $dbObj->insert_data(TABLE_COMMENT,$arr);
 			 /* mail for new comment*/
-			 if($_SESSION['session_admin_userid']!=''){
+			 if($_SESSION['session_admin_userid']==''){
 			 $mail = new PHPMailer();
              $mail->From     = "admin@jwasser.com";
              $mail->AddAddress("shallu.47@gmiil.com");
@@ -17,7 +17,7 @@ if(count($_POST)>0){
 			 $mail->IsHTML(true);
 			 $mail->Body = "<b><font  style='font-size:14px;'>Below comment posted on post for approvel</font></b><br><br>
 		                    <br>".$arr['comment']."<br>";
-              if($lastID1) {$mail->send();}
+              $mail->send();
 			 }
 			$sqlSel_com1 = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$arr['post_id'] ;
 			$rsResult_com1 = $dbObj->fun_db_query($sqlSel_com1);

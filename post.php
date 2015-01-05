@@ -51,7 +51,7 @@ if(count($_POST)>0){
 								<br> Posted By : ".$_SESSION['session_admin_username']."<br>";
 				 $mail->send();
  				$_SESSION['msg']="Post Insert Successfully";
-				redirectURL(SITE_ADMIN_URL."add-post.php");	 
+				redirectURL(SITE_ADMIN_URL."index.php");	 
               }
 				}
 				else

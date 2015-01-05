@@ -84,7 +84,7 @@ $objAdmin->fun_authenticate_admin();
 				orderby = order;
 				$('#changeview').html('');
 				count=1;
-				loadArticle(count, orderby, userid);
+				loadArticle(count, orderby, userid,total_page);
 			    count++;
 		  }
 		  
@@ -185,6 +185,7 @@ $like = $dbObj->fun_db_fetch_rs_object($rsResult_like);?>
 
 <div class="pad5">
 <div class="profile">
+<a name="show"></a>
 <ul class="view-options">
 <li><a  class="grid" onClick="changeview1('listview')"><span>Grid View</span></a></li>
 <li><a  class="list" onClick="changeview('gridview')"><span>List View</span></a></li>
@@ -194,7 +195,8 @@ $like = $dbObj->fun_db_fetch_rs_object($rsResult_like);?>
 </div>
 
 
-<div class="pad5">
+<div class="pad5" style=" min-height:250px;">
+
 <ul class="gridview" id="changeview">
 
 <a id="inifiniteLoader">Loading... <img src="images/loading.gif" /></a>
@@ -208,9 +210,9 @@ $like = $dbObj->fun_db_fetch_rs_object($rsResult_like);?>
 <div class="footbar">
 <ul class="footpanel">
 <li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
-<li><a class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
-<li><a class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
-<li><a  class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
+<li><a  href="#show" class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
+<li><a href="#show" class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
+<li><a  href="#show" class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
 <?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 </ul>
 <div class="footpanel"></div>
