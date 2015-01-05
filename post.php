@@ -50,7 +50,7 @@ if(count($_POST)>0){
 				 $mail->Body = "<b><font  style='font-size:14px;'>New Post on jwasser.</font></b><br><br>
 								<br> Posted By : ".$_SESSION['session_admin_username']."<br>";
 				 $mail->send();
- 				$_SESSION['msg']="Post Insert Successfully";
+ 				$_SESSION['msg']="<span style=' color:green;font-size:13px;'>Post Insert Successfully</span>";
 				redirectURL(SITE_ADMIN_URL."index.php");	 
               }
 				}

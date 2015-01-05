@@ -6,11 +6,11 @@ unset($_SESSION['session_admin_username']);
 unset($_SESSION['session_admin_password']);
 unset($_SESSION['session_admin_type']);
 if(@$_REQUEST['reset']=='yes'){
-	$_SESSION['msg']='Password changed';
+	$_SESSION['msg']='<span style=" color:green;font-size:13px;">Password changed</span>';
 }
 else
 {
-	$_SESSION['msg']='You have logged out successfully';
+	$_SESSION['msg']='<span style=" color:green;font-size:13px;">You have logged out successfully</span>';
 
 }
 

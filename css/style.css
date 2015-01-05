@@ -60,6 +60,7 @@ a.menu-icon {
 	text-decoration:none;
 	color:#ffffff;
 	background:#fd3001 url(../images/anonymousUser.png) 5px center no-repeat;
+	cursor:pointer;
 }
 
 a.menu-icon:hover {background: #fd6301 url(../images/anonymousUser.png) 5px center no-repeat;}
@@ -106,17 +107,20 @@ ul.top-menu li:last-child a {
 	
 	border-bottom:0 dashed #eaa001;
 }
+.min-hit{ min-height:250px;}
 
 
 @media screen and (max-width : 480px){
 a.menu-icon span{display:none;}
+.min-hit{ min-height:15%;}
 }
+
 
 .instagram .profile {background:#eeeeee; border-radius:7px; width:100%}
 
 .instagram .profile .pleft{ float:left; border-radius:0px; border-right:1px solid #999999; display:inline-block; width:24.7%;}
 .instagram .profile .pleft img{border-radius:7px; margin:4%; width:92%;}
-.instagram .profile .pright{ float:left; display:inline-block; width:75%;}
+.instagram .profile .pright{ float:left; display:inline-block; width:73%;}
 
 .brdb{border-bottom:1px solid #999999;}
 
@@ -207,7 +211,7 @@ list-style-type:none;
 
 
 .instagram .footbar ul.footpanel{ margin:0; padding:0;list-style:none;}
-.instagram .footbar ul.footpanel li{ width:19.8%; margin:0; padding:0; float:left; border-right:1px solid #333333; list-style:none; height:40px;}
+.instagram .footbar ul.footpanel li{ width:19%; margin:0; padding:0; float:left; border-right:1px solid #333333; list-style:none; height:40px;}
 .instagram .footbar ul.footpanel li:last-child{ border:none;}
 .instagram .footbar ul.footpanel li a{color:#ffffff; text-decoration:none; display:block; text-align:center; padding:2px 0;}
 .instagram .footbar ul.footpanel li a span{ display:none;}

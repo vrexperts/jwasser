@@ -55,6 +55,9 @@ if(count($_POST)>0){
  $(".menu-icon").click(function(){
     $(".top-menu").toggle();
   });
+  $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
  
 });	
 </script>
@@ -88,7 +91,7 @@ function unlike(post_id,user_id){
 </div>
 <!-- End Top Menu -->
 </div>
-
+<div class="profile">
 <div class="pad5 viewimage">
 <div class="bigimg"><?php $extension = end(explode('.', $post->image));
 		if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
@@ -188,6 +191,7 @@ function unlike(post_id,user_id){
 <div class="footpanel"></div>
 </div>
 <!-- End Top Menu -->
+</div>
 </div>
 </body>
 </html>

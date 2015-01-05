@@ -30,9 +30,13 @@ $objAdmin->fun_authenticate_admin();
                   $(".menu-icon").click(function(){
                   $(".top-menu").toggle();
                  });
-				 $(".profile").click(function(){
+				 
+				 
+                  $(".profile").click(function(){
                   $(".top-menu").hide();
                  });
+				 
+				 
          });
 		 
 		 function changeview(view) {

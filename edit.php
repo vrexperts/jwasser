@@ -27,9 +27,9 @@ if(count($_POST)>0){
 				}
 		     }
 			$lastID = $dbObj->update_data(TABLE_USERS,'id',$arr,md5($_POST['id']));
-			if($lastID){$_SESSION['msg']="User Updated";}
+			if($lastID){$_SESSION['msg']="<span style=' color:green;font-size:13px;'>User Updated</span>";}
 			if($_REQUEST['action']=='edit'){redirectURL(SITE_ADMIN_URL."profile-edit.php?action=edit&id=".$_REQUEST['id']);}
-			else {redirectURL(SITE_ADMIN_URL."instagram.php");}
+			else {redirectURL(SITE_ADMIN_URL."profile.php");}
 				
 				
 				 

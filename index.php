@@ -21,6 +21,9 @@ $dbObj->fun_db_connect();
                   $(".menu-icon").click(function(){
                   $(".top-menu").toggle();
                  });
+				 $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
          });
 		 
 		 function changeview(view) {

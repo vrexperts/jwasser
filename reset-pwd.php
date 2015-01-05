@@ -13,7 +13,7 @@ if($total){
 	if(@$_POST['n_password']==@$_POST['c_password']){
       $arr['password']=md5($_POST['n_password']);
 	  $lastID = $dbObj->update_data(TABLE_USERS,'id',$arr,md5($_POST['user_id']));
-	  $_SESSION['msg']='Password changed';
+	  $_SESSION['msg']='<span style=" color:green;font-size:13px;">Password changed</span>';
 	  redirectURL(SITE_ADMIN_URL."logout.php");
      }else{
      $_SESSION['msg']="New password and Comform password are not matching";

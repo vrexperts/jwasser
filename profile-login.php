@@ -18,6 +18,9 @@ $dbObj->fun_db_connect();
  $(".menu-icon").click(function(){
     $(".top-menu").toggle();
   });
+  $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
  
 });	
 </script>
@@ -95,7 +98,7 @@ $dbObj->fun_db_connect();
 </div>
 <!-- End Top Menu -->
 </div>
-
+<div class="profile">
 <div class="pad5 viewimage">
 <div class="contentbox">
 
@@ -159,6 +162,7 @@ $dbObj->fun_db_connect();
 <div class="footpanel"></div>
 </div>
 <!-- End Top Menu -->
+</div>
 </div>
 </body>
 </html>

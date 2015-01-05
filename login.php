@@ -11,9 +11,7 @@ require_once("includes/application-top.php");
 				$_SESSION['session_admin_username'] = $adminInfo['username'];
 				 $_SESSION['session_admin_password'] = $adminInfo['password'];
 				 $_SESSION['session_admin_type'] = $adminInfo['type'];
-				 //print_r($adminInfo);die;
-				
-				redirectURL(SITE_ADMIN_URL."instagram.php");
+				redirectURL(SITE_ADMIN_URL."profile.php");
 			}else{
 				unset($_SESSION['session_admin_userid']);
 				unset($_SESSION['session_admin_username']);

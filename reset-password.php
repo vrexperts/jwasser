@@ -13,7 +13,7 @@ if($total){
 	if(@$_POST['n_password']==@$_POST['c_password']){
       $arr['password']=md5($_POST['n_password']);
 	  $lastID = $dbObj->update_data(TABLE_USERS,'id',$arr,md5($_POST['user_id']));
-	  $_SESSION['msg']='Password changed';
+	  $_SESSION['msg']='<span style=" color:green;font-size:13px;">Password Changed</span>';
 	  redirectURL(SITE_ADMIN_URL."logout.php?reset=yes");
      }else{
      $_SESSION['msg']="New password and Comform password are not matching";
@@ -21,7 +21,7 @@ if($total){
 }
 else
 	 {
-	$_SESSION['msg']="old password incorrect";
+	$_SESSION['msg']="Old password incorrect";
 	 }
 
        
@@ -42,6 +42,9 @@ else
  $(".menu-icon").click(function(){
     $(".top-menu").toggle();
   });
+  $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
  
 });	
 </script>
@@ -61,7 +64,7 @@ else
 </div>
 <!-- End Top Menu -->
 </div>
-
+<div class="profile">
 <div class="pad5 viewimage">
 <div class="contentbox">
 
@@ -69,7 +72,7 @@ else
 <div id="login" >
 <strong style="font-size:14px;">Reset Password</strong>
 <div class="pad5"></div>
-<?php if(@$_SESSION['msg']!=''):?><div class="title"> <?php echo @$_SESSION['msg']; @$_SESSION['msg']='';?></div><?php endif;?>
+<?php if(@$_SESSION['msg']!=''):?><div class="title" style="color:red;"> <?php echo @$_SESSION['msg']; @$_SESSION['msg']='';?></div><?php endif;?>
 
 <form action="" method="post" name="form1" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>">
@@ -115,6 +118,7 @@ else
 <div class="footpanel"></div>
 </div>
 <!-- End Top Menu -->
+</div>
 </div>
 </body>
 </html>

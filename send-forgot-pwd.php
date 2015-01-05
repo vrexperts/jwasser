@@ -38,7 +38,7 @@ $mail->Body = "<b><font  size='+2' color='red'>Reset Password</font></b><br><br>
 
 if(!$mail->Send()) {
 
- $_SESSION['msg']= 'Mail was not sent.';
+ $_SESSION['msg']= '<span style=" color:green;font-size:13px;">Mail was not sent.</span>';
   redirectURL(SITE_ADMIN_URL."profile-login.php");
 
 } else {

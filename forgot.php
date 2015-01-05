@@ -14,7 +14,7 @@ if($total){
       $arr['password']=md5($_POST['n_password']);
 	$update="UPDATE ".TABLE_USERS." SET password='".$arr['password']."' , reset_key='' WHERE reset_key='".$_GET['key']."'";
     $resule=mysql_query($update);
-	  $_SESSION['msg']='Password changed';
+	  $_SESSION['msg']='<span style=" color:green;font-size:13px;">Password changed</span>';
 	 redirectURL(SITE_ADMIN_URL."profile-login.php");
      }else{
      $_SESSION['msg']="New password and Comform password are not matching";
@@ -45,6 +45,9 @@ else
  $(".menu-icon").click(function(){
     $(".top-menu").toggle();
   });
+  $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
  
 });	
 </script>
@@ -64,7 +67,7 @@ else
 </div>
 <!-- End Top Menu -->
 </div>
-
+<div class="profile">
 <div class="pad5 viewimage">
 <div class="contentbox">
 
@@ -72,7 +75,7 @@ else
 <div id="login" >
 <strong style="font-size:14px;">Set Password</strong>
 <div class="pad5"></div>
-<?php if(@$_SESSION['msg']!=''):?><div class="title"> <?php echo @$_SESSION['msg'];?></div><?php endif;?>
+<?php if(@$_SESSION['msg']!=''):?><div class="title" style="color:red;"> <?php echo @$_SESSION['msg'];?></div><?php endif;?>
 
 <form action="forgot.php?key=<?php echo @$_GET['key']?>" method="post" name="form1" enctype="multipart/form-data">
 <input type="password" class="instxt" placeholder="New Password"  name="n_password" value="" required/>
@@ -115,6 +118,7 @@ else
 <div class="footpanel"></div>
 </div>
 <!-- End Top Menu -->
+</div>
 </div>
 </body>
 </html>

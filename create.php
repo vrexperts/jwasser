@@ -22,7 +22,7 @@ if(count($_POST)>0){
 			if($existusername){$_SESSION['msg']= "Username already Exits";redirectURL(SITE_ADMIN_URL."create-profile.php");}
 			elseif($existemail){$_SESSION['msg']="Email already Exits";redirectURL(SITE_ADMIN_URL."create-profile.php");}
 			else{$lastID = $dbObj->insert_data(TABLE_USERS,$arr);
-			if($lastID){ $_SESSION['msg']="Profile Created"; redirectURL(SITE_ADMIN_URL."create-profile.php");}
+			if($lastID){ $_SESSION['msg']="<span style=' color:green;font-size:13px;'>Profile Created</span>"; redirectURL(SITE_ADMIN_URL."create-profile.php");}
 			}
 			
 }

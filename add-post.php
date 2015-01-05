@@ -17,6 +17,9 @@ $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
  $(".menu-icon").click(function(){
     $(".top-menu").toggle();
   });
+   $(".profile").click(function(){
+                  $(".top-menu").hide();
+                 });
  
 });	
 </script>
