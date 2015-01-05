@@ -6,14 +6,13 @@ define("SITE_MANDATORY_FIELDS", "<font color='#ff0000' face='verdana' size='1'><
 
 
 
-	define("SITE_URL", "http://".$_SERVER['HTTP_HOST']."/git/jwasser/");
-	define("SITE_SECURE_URL", "http://".$_SERVER['HTTP_HOST']."/git/jwasser/");
-	define("admin_path", "http://".$_SERVER['HTTP_HOST']."/git/jwasser/");
-	define("SITE_DOC_ROOT", $_SERVER['DOCUMENT_ROOT']."/git/jwasser/");
+	define("SITE_URL", "http://".$_SERVER['HTTP_HOST']."/94/jwasser/");
+	define("SITE_SECURE_URL", "http://".$_SERVER['HTTP_HOST']."/94/jwasser/");
+	define("admin_path", "http://".$_SERVER['HTTP_HOST']."/94/jwasser/");
+	define("SITE_DOC_ROOT", $_SERVER['DOCUMENT_ROOT']."/94/jwasser/");
 	define("SITE_INFO_EMAIL", "info@info.com");
 	define("SITE_ORDERS_EMAIL", "info@info.com");
 	define("SITE_PAYPAL_ID", "info@info.com");
-	
 	define("limit", "15");
 
 

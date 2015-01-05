@@ -28,10 +28,11 @@ $mail->From     = "admin@jwasser.com";
 $mail->AddAddress($_POST['email']);
 
 $mail->Subject  = "To reset password";
+$mail->IsHTML(true);
 
 $mail->Body = "<b><font  size='+2' color='red'>Reset Password</font></b><br><br>
 		      <br>Click the link below to reset your password<br>
-		      http://".$_SERVER['HTTP_HOST']."/git/html/forgot.php?key=".$arr['reset_key']."<br><br>";
+		      http://".$_SERVER['HTTP_HOST']."/94/jwasser/forgot.php?key=".$arr['reset_key']."<br><br>";
 
 //echo  $mail->Body ;die;
 

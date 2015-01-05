@@ -1,4 +1,5 @@
 <?php
+require("PHPMailer/class.phpmailer.php");
 require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
@@ -6,7 +7,18 @@ $dbObj->fun_db_connect();
 if(count($_POST)>0){
          $arr=$_POST;
 		     $arr['add_date']= date("Y-m-d H:i:s");
-			$lastID = $dbObj->insert_data(TABLE_COMMENT,$arr);
+			 $lastID1 = $dbObj->insert_data(TABLE_COMMENT,$arr);
+			 /* mail for new comment*/
+			 if($_SESSION['session_admin_userid']!=''){
+			 $mail = new PHPMailer();
+             $mail->From     = "admin@jwasser.com";
+             $mail->AddAddress("shallu.47@gmiil.com");
+             $mail->Subject  = "Comment Posted On Post";
+			 $mail->IsHTML(true);
+			 $mail->Body = "<b><font  style='font-size:14px;'>Below comment posted on post for approvel</font></b><br><br>
+		                    <br>".$arr['comment']."<br>";
+              if($lastID1) {$mail->send();}
+			 }
 			$sqlSel_com1 = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$arr['post_id'] ;
 			$rsResult_com1 = $dbObj->fun_db_query($sqlSel_com1);
 			$total_comment = $dbObj->fun_db_get_num_rows($rsResult_com1);

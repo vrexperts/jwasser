@@ -4,8 +4,8 @@ $dbObj = new DB();
 $dbObj->fun_db_connect();
 $page=$_REQUEST['page_no'];
 $user_id=$_REQUEST['user_id'];
-$start=($page-1)*15;
-$end=$start+15;
+$start=($page-1)*limit;
+$end=limit;
 
 
 
@@ -18,7 +18,7 @@ else
 	$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where post_status=0";
 }
 
-$sqlSel_post .= " order by `$_REQUEST[orderby]` DESC limit $start,15";
+$sqlSel_post .= " order by `$_REQUEST[orderby]` DESC limit $start,$end";
 
 
 if($page > 1) {

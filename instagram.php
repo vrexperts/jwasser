@@ -8,6 +8,14 @@ $objAdmin->fun_authenticate_admin();
 ?>
 <?php echo @$_SESSION['session_admin_userid'];?>;
  <?php $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
+ 
+ <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'];
+       $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+       $total_Post = $dbObj->fun_db_get_num_rows($rsResult_post);
+	   $total_pages=ceil($total_Post/limit);
+?>
+ 
+ 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xml:lang="en">
 <head>
@@ -38,23 +46,25 @@ $objAdmin->fun_authenticate_admin();
       var count = 1;
 	  var orderby = 'id';
 	  var userid = <?php echo @$_SESSION['session_admin_userid'];?>;
+	  var total_page=<?php echo $total_pages;?> 
       jQuery(document).ready(function($) {
-		  loadArticle(count, orderby, userid);
+		  loadArticle(count, orderby, userid,total_page);
           count++;
 		  
           $(window).scroll(function(){
 			  
                   if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-                     loadArticle(count, orderby, userid);
+                     loadArticle(count, orderby, userid,total_page);
                      count++;
                   }
           }); 
    
       });
 	  
-	  function loadArticle(pageNumber, order, userid){
-		  
-		  //alert(pageNumber);
+	  function loadArticle(pageNumber, order, userid,total_page){
+		  //alert(total_page);
+		
+		  if(total_page>=pageNumber){
                   $('a#inifiniteLoader').show('fast');
                   $.ajax({
                       url: "ajax-post.php",
@@ -67,6 +77,7 @@ $objAdmin->fun_authenticate_admin();
                   });
               return false;
           }
+	  }
 	  
 	  function mview(order,userid) {
 		        //userid=0;
@@ -124,10 +135,7 @@ $objAdmin->fun_authenticate_admin();
 <div class="prt-panel">
 <a href="#">
 <span class="value">
-<?php $sqlSel_post = "SELECT * FROM " . TABLE_POST ." where user_id=".$_SESSION['session_admin_userid'];
-$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
-echo $total_Post = $dbObj->fun_db_get_num_rows($rsResult_post);
-?>
+<?php echo $total_Post;?>
 </span>
 <span class="label">My Posts</span>
 </a>
@@ -199,10 +207,10 @@ $like = $dbObj->fun_db_fetch_rs_object($rsResult_like);?>
 <!-- Start Top Menu -->
 <div class="footbar">
 <ul class="footpanel">
-<li><a href="#" class="allpost" title="All Post"><span>All Post</span></a></li>
-<li><a href="#" class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
-<li><a href="#" class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
-<li><a href="#" class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
+<li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<li><a class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
+<li><a class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
+<li><a  class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
 <?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 </ul>
 <div class="footpanel"></div>

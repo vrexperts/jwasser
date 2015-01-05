@@ -6,7 +6,7 @@ $dbObj->fun_db_connect();
  <?php $sqlSel_post = "SELECT * FROM " . TABLE_POST;
        $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
        $total_Post = $dbObj->fun_db_get_num_rows($rsResult_post);
-	   $total_pages=ceil($total_Post/limit);
+	  $total_pages=ceil($total_Post/limit);
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xml:lang="en">
@@ -52,7 +52,7 @@ $dbObj->fun_db_connect();
       });
 	  
 	  function loadArticle(pageNumber, order, userid,total_page){
-		 // alert(pageNumber);
+		//alert(pageNumber);
 		//alert(total_page);
 		   if(total_page>=pageNumber){
                   $('a#inifiniteLoader').show('fast');

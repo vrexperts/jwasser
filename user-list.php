@@ -1,6 +1,11 @@
 <?php include("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
+$sqlSel_post = "SELECT * FROM " . TABLE_USERS ;
+$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+      $total_Post = $dbObj->fun_db_get_num_rows($rsResult_post);
+	  $total_pages=ceil($total_Post/limit);
+	   
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,23 +29,24 @@ $dbObj->fun_db_connect();
       var count = 1;
 	  var orderby = 'id';
 	  var userid = <?php echo @$_SESSION['session_admin_userid'];?>;
+	  var total_page=<?php echo $total_pages;?> 
       jQuery(document).ready(function($) {
-		  loadArticle(count, orderby, userid);
+		  loadArticle(count, total_page);
           count++;
 		  
           $(window).scroll(function(){
 			  
                   if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-                     loadArticle(count);
+                     loadArticle(count,total_page);
                      count++;
                   }
           }); 
    
       });
 	  
-	  function loadArticle(pageNumber){
-		  
-		  //alert(pageNumber);
+	  function loadArticle(pageNumber,total_page){
+		 
+		  if(total_page>=pageNumber){
                   $('a#inifiniteLoader').show('fast');
                   $.ajax({
                       url: "ajax-user.php",
@@ -53,6 +59,7 @@ $dbObj->fun_db_connect();
                   });
               return false;
           }
+	  }
 		  </script>
           
          <!-- <style>

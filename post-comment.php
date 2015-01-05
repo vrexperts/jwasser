@@ -3,6 +3,18 @@ $dbObj = new DB();
 $dbObj->fun_db_connect();
 
 ?>
+<?php
+if(@$_SESSION['session_admin_type']=="1"){
+$sqlSel_post = "SELECT * FROM " . TABLE_COMMENT ;
+}
+else{
+$sqlSel_post = "SELECT * FROM ".TABLE_COMMENT." WHERE post_id in (SELECT GROUP_CONCAT(id) as ids FROM ".TABLE_POST." GROUP BY user_id HAVING user_id= ".$_SESSION['session_admin_userid'].")";
+	}
+	
+	$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+       $total_Post = $dbObj->fun_db_get_num_rows($rsResult_post);
+	   $total_pages=ceil($total_Post/limit);
+	?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xml:lang="en">
 <head>
@@ -24,24 +36,25 @@ $dbObj->fun_db_connect();
       var count = 1;
 	  var orderby = 'id';
 	  var userid = <?php echo @$_SESSION['session_admin_userid'];?>;
-	  //alert(userid);
+	  var total_page=<?php echo $total_pages;?> 
       jQuery(document).ready(function($) {
-		  loadArticle(count, userid);
+		  loadArticle(count, userid,total_page);
           count++;
 		  
           $(window).scroll(function(){
 			  
                   if  ($(window).scrollTop() == $(document).height() - $(window).height()){
-                     loadArticle(count,userid);
+                     loadArticle(count,userid,total_page);
                      count++;
                   }
           }); 
    
       });
 	  
-	  function loadArticle(pageNumber,userid){
-		  
-		  //alert(pageNumber);
+	  function loadArticle(pageNumber,userid,total_page){
+		   //alert(pageNumber);
+		  //alert(total_page);
+		  if(total_page>=pageNumber){
                   $('a#inifiniteLoader').show('fast');
                   $.ajax({
                       url: "ajax-comment.php",
@@ -56,6 +69,7 @@ $dbObj->fun_db_connect();
                   });
               return false;
           }
+	  }
 		  
 		  
 		  

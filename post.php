@@ -1,4 +1,5 @@
 <?php
+require("PHPMailer/class.phpmailer.php");
 require_once("includes/application-top.php");
 $objAdmin = new Admins();
 $objAdmin->fun_authenticate_admin();
@@ -41,6 +42,14 @@ if(count($_POST)>0){
 			 
 			  $lastID = $dbObj->insert_data(TABLE_POST,$arr);
 			  if($lastID){
+				 $mail = new PHPMailer();
+				 $mail->From     = "admin@jwasser.com";
+				 $mail->AddAddress("shallu.47@gmiil.com");
+				 $mail->Subject  = "New Post";
+				 $mail->IsHTML(true);
+				 $mail->Body = "<b><font  style='font-size:14px;'>New Post on jwasser.</font></b><br><br>
+								<br> Posted By : ".$_SESSION['session_admin_username']."<br>";
+				 $mail->send();
  				$_SESSION['msg']="Post Insert Successfully";
 				redirectURL(SITE_ADMIN_URL."add-post.php");	 
               }
