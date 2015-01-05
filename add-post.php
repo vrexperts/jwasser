@@ -37,7 +37,7 @@ $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
 </div>
 <!-- End Top Menu -->
 </div>
-
+<div class="profile">
 <div class="pad5 viewimage">
 <div class="contentbox">
 
@@ -73,10 +73,10 @@ $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
 <!-- Start Top Menu -->
 <div class="footbar">
 <ul class="footpanel">
-<li><a href="#" class="allpost" title="All Post"><span>All Post</span></a></li>
-<li><a href="#" class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
-<li><a href="#" class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
-<li><a href="#" class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
+<li><a href="index.php" class="allpost" title="All Post"><span>All Post</span></a></li>
+<li><a href="profile.php" class="comment" title="Most Comment"  onClick="mview('total_comment',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Commented</span></a></li>
+<li><a href="profile.php" class="like" title="Most Like"  onClick="mview('total_like',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Liked</span></a></li>
+<li><a href="profile.php" class="mostviewed" title="Most View"  onClick="mview('total_view',<?php echo @$_SESSION['session_admin_userid'];?>);"><span>Most Viewed</span></a></li>
 <?php if(@$_SESSION['session_admin_userid']!=''){?><li><a href="add-post.php" class="addpost" title="Add Post"><span>Add Post</span></a></li><?php }?>
 </ul>
 <div class="footpanel"></div>
@@ -85,6 +85,7 @@ $user = $dbObj->get_row(TABLE_USERS,"id=".$_SESSION['session_admin_userid']);?>
 <div class="footpanel"></div>
 </div>
 <!-- End Top Menu -->
+</div>
 </div>
 </body>
 </html>
