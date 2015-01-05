@@ -8,10 +8,9 @@ class DB{
 	var $dbConnectPersistant;
 	function DB(){
 			$this->dbHost = "localhost";
-			$this->dbUsername = "root";
-			//$this->dbPassword = "iluByuejc95";
-			$this->dbPassword = "";
-			$this->dbDatabase = "jwasser"; 
+			$this->dbUsername = "vrexpert_chimney";
+			$this->dbPassword = "EAvOi+h2G,Z)";
+			$this->dbDatabase = "vrexpert_chimney";   
 		    $this->dbConnectPersistant = false; 
 		    $this->fun_db_connect();
 	} 
@@ -105,9 +104,8 @@ function insert_data($table_name,$data_array,$link='')
 	{
 		 $sql="SHOW COLUMNS FROM `$table_name`";
 		$columns_query = $this->fun_db_query($sql,$link);
-		//print_r(mysql_fetch_assoc($columns_query));
 		while($coloumn_data = mysql_fetch_assoc($columns_query)){
-				$column_name[]=@$coloumn_data[Field];
+				$column_name[]=$coloumn_data[Field];
 		}
 		foreach($data_array as $key=>$val)
 		{
@@ -128,7 +126,7 @@ function insert_data($table_name,$data_array,$link='')
 		 }
 		 $fld_str=substr($fld_str,0,-1);
 		 $val_str=substr($val_str,0,-1);
-		$sql="INSERT INTO $table_name($fld_str) VALUES($val_str)";
+		 $sql="INSERT INTO $table_name($fld_str) VALUES($val_str)";
 		 $this->fun_db_query($sql,$link);
 		return mysql_insert_id();
 	}
@@ -172,28 +170,5 @@ function update_data($table_name,$match_fld,$data_array,$rec_id,$link='')
 		}
 		return $memFound;
 	}
-	
-	function fun_check_username_admin_existance1($username){ // this function checked checks wheather username exists or not
-		$unameFound = false;
-		$sqlCheck = mysql_query("SELECT username FROM " . TABLE_USERS . " WHERE username='".fun_db_input($username)."' ");
-		
-		if($this->fun_db_get_num_rows($sqlCheck) > 0){
-			$unameFound = true;
-		}
-		return $unameFound;
-	}
-	
-	function fun_check_email_admin_existance1($email){ // this function checked checks wheather username exists or not
-		$unameFound = false;
-		$sqlCheck = mysql_query("SELECT email FROM " . TABLE_USERS . " WHERE email='".fun_db_input($email)."' ");
-		
-		if($this->fun_db_get_num_rows($sqlCheck) > 0){
-			$unameFound = true;
-		}
-		return $unameFound;
-	}
-	
-
-	
 }
 ?>

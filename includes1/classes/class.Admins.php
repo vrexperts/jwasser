@@ -19,7 +19,6 @@ class Admins{
 						"email" => $_POST['email'],
 						"name" => $_POST['name'],
 						"status" => $_POST['status'],
-						"type" => $_POST['type'],
 						"add_date" => date("Y-m-d H:i:s")
 					);
 		
@@ -248,7 +247,6 @@ function forgo_password_name($Adminemailid)
 							"email" => fun_db_output($rowsAdmin->email),
 							"name" => fun_db_output($rowsAdmin->name),
 							"status" => fun_db_output($rowsAdmin->status),
-							"type" => fun_db_output($rowsAdmin->type),
 							"add_date" => fun_db_output($rowsAdmin->add_date)
 							
 						);

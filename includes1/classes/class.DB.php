@@ -9,9 +9,8 @@ class DB{
 	function DB(){
 			$this->dbHost = "localhost";
 			$this->dbUsername = "root";
-			//$this->dbPassword = "iluByuejc95";
 			$this->dbPassword = "";
-			$this->dbDatabase = "jwasser"; 
+			$this->dbDatabase = "jwasser";   
 		    $this->dbConnectPersistant = false; 
 		    $this->fun_db_connect();
 	} 

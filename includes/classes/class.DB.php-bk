@@ -9,9 +9,8 @@ class DB{
 	function DB(){
 			$this->dbHost = "localhost";
 			$this->dbUsername = "root";
-			//$this->dbPassword = "iluByuejc95";
 			$this->dbPassword = "";
-			$this->dbDatabase = "jwasser"; 
+			$this->dbDatabase = "jwasser";   
 		    $this->dbConnectPersistant = false; 
 		    $this->fun_db_connect();
 	} 
@@ -157,7 +156,7 @@ function update_data($table_name,$match_fld,$data_array,$rec_id,$link='')
 			 }
 			 }
 			 $val_str=substr($val_str,0,-1);
-		 $sql="UPDATE `$table_name` SET $val_str WHERE md5(`$match_fld`)='$rec_id'";
+		 echo $sql="UPDATE `$table_name` SET $val_str WHERE md5(`$match_fld`)='$rec_id'";
 		 $this->fun_db_query($sql,$link);
 		 return mysql_affected_rows();
 			}
