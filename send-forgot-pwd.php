@@ -22,21 +22,18 @@ if($existemail){
 }
       $arr['reset_key']=getRandomString();
 	  $lastID = $dbObj->update_data(TABLE_USERS,'email',$arr,md5($_POST['email']));
-$mail = new PHPMailer();
-
-$mail->From     = "admin@jwasser.com";
-$mail->AddAddress($_POST['email']);
-
-$mail->Subject  = "To reset password";
-$mail->IsHTML(true);
-
-$mail->Body = "<b><font  size='+2' color='red'>Reset Password</font></b><br><br>
-		      <br>Click the link below to reset your password<br>
-		      http://".$_SERVER['HTTP_HOST']."/94/jwasser/forgot.php?key=".$arr['reset_key']."<br><br>";
-
-//echo  $mail->Body ;die;
-
-if(!$mail->Send()) {
+	  $user_name='jwasser.com';//site url	
+      $mail = new PHPMailer();
+      $mail->FromName = $user_name;
+      $mail->From     = "admin@jwasser.com";
+      $mail->AddAddress($_POST['email']);
+      $mail->AddReplyTo("admin@jwasser.com");
+      $mail->Subject  = "To reset password";
+      $mail->IsHTML(true);
+      $mail->Body = "<b><font  size='+2' color='red'>Reset Password</font></b><br><br>
+		             <br>Click the link below to reset your password<br>
+		             http://".$_SERVER['HTTP_HOST']."/94/jwasser/forgot.php?key=".$arr['reset_key']."<br><br>";
+ if(!$mail->Send()) {
 
  $_SESSION['msg']= '<span style=" color:green;font-size:13px;">Mail was not sent.</span>';
   redirectURL(SITE_ADMIN_URL."profile-login.php");

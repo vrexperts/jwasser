@@ -36,6 +36,10 @@ if($page > 1) {
                    </a>
 <div class="contentbox">
 <div class="contenttext"><?php echo $post->description;?></div>
+<div class="comments1" style=" cursor:pointer;" title="Post By"><?php 
+							$user = $dbObj->get_row(TABLE_USERS,"id=".$post->user_id);
+							echo $user['username'];
+							?></div>
 <div class="comments" style=" cursor:pointer;" title="Comment">Comments(<?php echo $post->total_comment;?>)</div>
 <div class="imglike" style=" cursor:pointer;" title="Like">Like(<?php echo $post->total_like;?>)</div>
 <div class="viewed" style=" cursor:pointer;" title="View">Viewed(<?php echo $post->total_view;?>)</div>

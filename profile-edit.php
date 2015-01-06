@@ -63,7 +63,7 @@ else
     <label for="FileID">
     <img src="images/change-img.png" class="editimg"/>
     </label>
-    <label>
+    <label for="FileID">
     <?php if(@$user['images']!=''){?>
     <img src="<?php echo admin_path.$user['images'];?>" />
     <?php } else {?>

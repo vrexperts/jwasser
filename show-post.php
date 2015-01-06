@@ -4,30 +4,7 @@ require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
 
-if(count($_POST)>0){
-         $arr=$_POST;
-		     $arr['add_date']= date("Y-m-d H:i:s");
-			 $lastID1 = $dbObj->insert_data(TABLE_COMMENT,$arr);
-			 /* mail for new comment*/
-			 if($_SESSION['session_admin_userid']==''){
-			 $mail = new PHPMailer();
-             $mail->From     = "admin@jwasser.com";
-             $mail->AddAddress("shallu.47@gmiil.com");
-             $mail->Subject  = "Comment Posted On Post";
-			 $mail->IsHTML(true);
-			 $mail->Body = "<b><font  style='font-size:14px;'>Below comment posted on post for approvel</font></b><br><br>
-		                    <br>".$arr['comment']."<br>";
-              $mail->send();
-			 }
-			$sqlSel_com1 = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$arr['post_id'] ;
-			$rsResult_com1 = $dbObj->fun_db_query($sqlSel_com1);
-			$total_comment = $dbObj->fun_db_get_num_rows($rsResult_com1);
-			
-			$arr['total_comment']=$total_comment;
-            $lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($arr['post_id']));
-			
-			if($lastID){ redirectURL("show-post.php?id=".$arr['post_id']);}
-	}
+
 	
 		 		$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
 				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
@@ -37,7 +14,7 @@ if(count($_POST)>0){
 				$rsResult_post_like = $dbObj->fun_db_query($sqlSel_post_like);
 				$like = $dbObj->fun_db_get_num_rows($rsResult_post_like);
 									 
-				$sqlSel_post_comment = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$post->id." and status=1" ;
+				$sqlSel_post_comment = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$post->id." and status=1 order by id desc" ;
 				$rsResult_post_comment = $dbObj->fun_db_query($sqlSel_post_comment);
 				$comment = $dbObj->fun_db_get_num_rows($rsResult_post_comment); 
 				?>
@@ -93,6 +70,7 @@ function unlike(post_id,user_id){
 </div>
 <div class="profile">
 <div class="pad5 viewimage">
+<div><?php echo @$_SESSION['msg'];@$_SESSION['msg']='';?></div>
 <div class="bigimg"><?php $extension = end(explode('.', $post->image));
 		if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
 		<img src="<?php echo admin_path.$post->larg_image;?>" width="100%"/>
@@ -121,10 +99,38 @@ function unlike(post_id,user_id){
           <div class="imglike" style=" cursor:pointer;" onclick="liked(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Like">Like <?php echo $like;?></div>
 
           <?php else:?>
-         <div class="imglike" style=" cursor:pointer;" onclick="unlike(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Unlike">Like <?php echo $like;?></div>
+         <div class="imgdislike" style=" cursor:pointer;" onclick="unlike(<?php  echo $post->id;?>,<?php echo @$_SESSION['session_admin_userid'];?>)" title="Unlike">Like <?php echo $like;?></div>
        <?php endif;?>
          <div class="viewed" style=" cursor:pointer;" title="View">Viewed <?php echo $post->total_view;?></div>
 <?php endif;?>
+
+   
+
+
+
+
+
+
+
+<div class="pad10 clear"></div>
+<form action="comment-post.php" method="post" name="form1" enctype="multipart/form-data">
+
+<?php if(@$_SESSION['session_admin_userid']!=''):?>
+<input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>" />
+<input type="hidden" name="status" value="1" />
+<?php else :?>
+<div class="pad5"></div>
+<input type="text" class="instxt" placeholder="Name" name="user_name" value=""  required="required"/>
+<div class="pad5"></div>
+<input type="email" class="instxt" placeholder="Email" name="email" value=""  required="required"/>
+<?php endif;?>
+<div class="pad5"></div>
+<textarea class="instxt"  placeholder="Comment" rows="3"  name="comment" required/></textarea>
+<input type="hidden" name="post_id" value="<?php echo $post->id;?>" />
+<div class="pad5 clear"></div>
+<input type="submit" class="button" value="Submit" />
+</form>
+<div class="pad5 clear"></div>
 
 <?php while($com = $dbObj->fun_db_fetch_rs_object($rsResult_post_comment)):?>
   <div class="clear pad5"></div>
@@ -140,7 +146,7 @@ function unlike(post_id,user_id){
 							echo $user['username'];
 							else : echo $com->user_name;
 							endif;
-							?></span> | <?php echo fun_site_date_format($com->add_date)?> | <?php echo fun_site_date_format($com->add_date)?></em></span></span>
+							?></span> | <?php echo fun_site_date_format($com->add_date)?> | <?php echo $time = date("H:i:s",strtotime($com->add_date));?></em></span></span>
 <div class="clear pad5"></div> 
       
       
@@ -148,30 +154,7 @@ function unlike(post_id,user_id){
        
 
 
-<?php endwhile; ?>     
-
-
-
-
-
-
-
-<div class="pad10 clear"></div>
-<form action="" method="post" name="form1" enctype="multipart/form-data">
-<textarea class="instxt"  placeholder="Comment" rows="3"  name="comment" required/></textarea>
-<?php if(@$_SESSION['session_admin_userid']!=''):?><input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>" />
-<input type="hidden" name="status" value="1" />
-<?php else :?>
-<div class="pad5"></div>
-<input type="text" class="instxt" placeholder="Name" name="user_name" value=""  required="required"/>
-<div class="pad5"></div>
-<input type="email" class="instxt" placeholder="Email" name="email" value=""  required="required"/>
-<?php endif;?>
-<div class="pad5"></div>
-<input type="hidden" name="post_id" value="<?php echo $post->id;?>" />
-<input type="submit" class="button" value="Submit" />
-</form>
-<div class="pad5 clear"></div>
+<?php endwhile; ?>  
 </div>
 
 </div>

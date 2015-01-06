@@ -172,7 +172,9 @@ a.menu-icon span{display:none;}
 
 .instagram ul.listview li .contentbox .contenttext, .instagram .viewimage .contenttext{ padding:2px;}
 .instagram ul.listview li .contentbox .comments, .instagram .viewimage .comments{margin:2px 0; font-size:11px; line-height:10px; background:url(../images/comment.png) 0 -10px no-repeat; padding:0 15px; color:#fd3001; float:left;}
+.instagram ul.listview li .contentbox .comments1, .instagram .viewimage .comments1{margin:2px 0; font-size:11px; line-height:10px; padding:0 15px; color:#fd3001; float:left;}
 .instagram ul.listview li .contentbox .imglike, .instagram .viewimage .imglike{margin:2px 0; font-size:11px; line-height:10px; background:url(../images/like.png) 0 -12px  no-repeat; padding:0 15px; color:#fd3001; float:left;}
+.instagram ul.listview li .contentbox .imgdislike, .instagram .viewimage .imgdislike{margin:2px 0; font-size:11px; line-height:10px; background:url(../images/dislike.png) 0 -2px  no-repeat; padding:0 15px; color:#fd3001; float:left;}
 .instagram ul.listview li .contentbox .viewed, .instagram .viewimage .viewed{margin:2px 0; font-size:11px; line-height:10px; background:url(../images/viewed.png) 0 -12px  no-repeat; padding:0 15px; color:#fd3001; float:left;}
 
 .instagram .viewimage .contentbox{font:12px; color:#555555; padding:5px 10px; background:#ffffff;}

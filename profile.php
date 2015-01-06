@@ -88,7 +88,7 @@ $objAdmin->fun_authenticate_admin();
 	  function mview(order,userid) {
 		        //userid=0;
 				orderby = order;
-				$('#changeview').html('');
+				$('#changeview').html('<a id="inifiniteLoader"><img src="images/loading.gif" width="90%" /></a>');
 				count=1;
 				loadArticle(count, orderby, userid,total_page);
 			    count++;
