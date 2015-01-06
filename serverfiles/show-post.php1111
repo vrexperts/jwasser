@@ -4,7 +4,36 @@ require_once("includes/application-top.php");
 $dbObj = new DB();
 $dbObj->fun_db_connect();
 
-
+if(count($_POST)>0){
+         $arr=$_POST;
+		     $arr['add_date']= date("Y-m-d H:i:s");
+			 $lastID1 = $dbObj->insert_data(TABLE_COMMENT,$arr);
+			 if($lastID1){$msg='<span style=" color:green;font-size:13px;">Your comment is successfully posted. Will display after approval.</span>';}
+			 /* mail for new comment*/
+			 if($_SESSION['session_admin_userid']==''){
+			
+		     $user_name='jwasser.com';//site url		 
+			 $mail = new PHPMailer();
+             $mail->From     = "admin@jwasser.com";
+			 $mail->FromName = $user_name;
+			 $mail->AddReplyTo($_POST['email']);
+             $mail->AddAddress("shallu.47@gmail.com");
+             $mail->Subject  = "Comment Posted On Post";
+			 $mail->IsHTML(true);
+			 $mail->Body = "<b><font  style='font-size:14px;'>Below comment posted on post for approvel</font></b><br><br>
+		                    <br>".$arr['comment']."<br>";
+             $mail->send();
+			 //if(!$mail->send()){echo "Not Send";die;}else{echo "Mail Send";die;}
+			 }
+			$sqlSel_com1 = "SELECT * FROM " . TABLE_COMMENT." where post_id=".$arr['post_id'] ;
+			$rsResult_com1 = $dbObj->fun_db_query($sqlSel_com1);
+			$total_comment = $dbObj->fun_db_get_num_rows($rsResult_com1);
+			
+			$arr['total_comment']=$total_comment;
+            $lastID = $dbObj->update_data(TABLE_POST,'id',$arr,md5($arr['post_id']));
+			
+			//if($lastID){ redirectURL("show-post.php?id=".$arr['post_id']);}
+	}
 	
 		 		$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where id=".$_REQUEST['id'];
 				$rsResult_post = $dbObj->fun_db_query($sqlSel_post);
@@ -22,7 +51,7 @@ $dbObj->fun_db_connect();
 <html xml:lang="en">
 <head>
 
-	<title><?php echo prefix." | Post Details";?></title>
+	<title>J Wasser &amp; Company</title>
 <meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1">	
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -70,7 +99,7 @@ function unlike(post_id,user_id){
 </div>
 <div class="profile">
 <div class="pad5 viewimage">
-<div><?php echo @$_SESSION['msg'];@$_SESSION['msg']='';?></div>
+<div><?php echo @$msg;?></div>
 <div class="bigimg"><?php $extension = end(explode('.', $post->image));
 		if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
 		<img src="<?php echo admin_path.$post->larg_image;?>" width="100%"/>
@@ -113,7 +142,7 @@ function unlike(post_id,user_id){
 
 
 <div class="pad10 clear"></div>
-<form action="comment-post.php" method="post" name="form1" enctype="multipart/form-data">
+<form action="" method="post" name="form1" enctype="multipart/form-data">
 
 <?php if(@$_SESSION['session_admin_userid']!=''):?>
 <input type="hidden" name="user_id" value="<?php echo @$_SESSION['session_admin_userid'];?>" />

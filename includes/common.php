@@ -15,7 +15,7 @@ define("SITE_MANDATORY_FIELDS", "<font color='#ff0000' face='verdana' size='1'><
 	define("SITE_PAYPAL_ID", "info@info.com");
 	
 	define("limit", "15");
-
+    define("prefix", "Jwasser");
 
 define("SITE_GALLERY_IMAGES", admin_path . "gallery/");
 define("SITE_GALLERY_IMAGES_PATH", SITE_GALLERY_IMAGES . "images/");

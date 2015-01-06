@@ -1,0 +1,50 @@
+<?php 
+require_once("includes/application-top.php");
+$dbObj = new DB();
+$dbObj->fun_db_connect();
+$page=$_REQUEST['page_no'];
+$user_id=$_REQUEST['user_id'];
+$start=($page-1)*limit;
+$end=limit;
+
+
+
+if($user_id > 0) {
+	$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where 1=1";
+	$sqlSel_post .= " AND user_id = $user_id";	
+}
+else
+{
+	$sqlSel_post = "SELECT * FROM " . TABLE_POST ." where post_status=0";
+}
+
+$sqlSel_post .= " order by `$_REQUEST[orderby]` DESC limit $start,$end";
+
+
+if($page > 1) {
+ //echo $sqlSel_post; die;
+}
+
+				    $rsResult_post = $dbObj->fun_db_query($sqlSel_post);
+					$i=1;
+					while($post = $dbObj->fun_db_fetch_rs_object($rsResult_post)) :?>
+                    
+                    <li><?php $extension = end(explode('.', $post->image));
+                            if($extension=='jpg' || $extension=='png' || $extension=='gif') :?>
+								<a href="show-post.php?id=<?php echo $post->id;?>" onclick="viewplus(<?php echo $post->id;?>);"><img src="<?php echo admin_path.$post->image;?>"  /></a>
+							<?php endif; ?>
+                   </a>
+<div class="contentbox">
+<div class="contenttext"><?php echo $post->description;?></div>
+<div class="comments1" style=" cursor:pointer;" title="Post By"><?php 
+							$user = $dbObj->get_row(TABLE_USERS,"id=".$post->user_id);
+							echo $user['username'];
+							?></div>
+<div class="comments" style=" cursor:pointer;" title="Comment">Comments(<?php echo $post->total_comment;?>)</div>
+<div class="imglike" style=" cursor:pointer;" title="Like">Like(<?php echo $post->total_like;?>)</div>
+<div class="viewed" style=" cursor:pointer;" title="View">Viewed(<?php echo $post->total_view;?>)</div>
+</div>
+<div class="clear"></div>
+</li>
+ <?php endwhile; ?>
+ 
